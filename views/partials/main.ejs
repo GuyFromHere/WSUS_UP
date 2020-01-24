@@ -1,0 +1,24 @@
+<div id="container">
+    <h1>Main table for stuff</h1>
+    <div><%= updates %></div>
+    <table>
+        <thead>
+            <th>KB Article</th>
+            <th>Classification</th>
+            <th>Status</th>
+            <th>Details</th>
+            <th>Product</th>
+        </thead>
+        <tbody>
+            <% for ( let i = 0; i < updates.length; i++ ) { %>
+            <tr>
+                <td><%= updates.kb %><%= i %></td>
+                <td><%= updates.classification %><%= i %></td>
+                <td><%= updates.status %><%= i %></td>
+                <td><%= updates.details %><%= i %></td>
+                <td><%= updates.product %><%= i %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
