@@ -2,22 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WSUS UP: Windows Update Tracker</title>
+    <%- include('../partials/head') %>
 </head>
 
 <body>
 
-    <div id="main" class="container">
-        <header>
+    <div id="nav">
+        <%- include('../partials/header') %>
+    </div>
 
-        </header>
+    <div id="main" class="container">
         <% if (typeof page !== 'undefined') {%>
         <%- include('../partials/' + page) %>
         <% } %>
-
     </div>
 
 </html>

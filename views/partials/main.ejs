@@ -1,6 +1,6 @@
 <div id="container">
     <h1>Main table for stuff</h1>
-    <div><%= updates %></div>
+
     <table>
         <thead>
             <th>KB Article</th>
@@ -12,11 +12,14 @@
         <tbody>
             <% for ( let i = 0; i < updates.length; i++ ) { %>
             <tr>
-                <td><%= updates.kb %><%= i %></td>
-                <td><%= updates.classification %><%= i %></td>
-                <td><%= updates.status %><%= i %></td>
-                <td><%= updates.details %><%= i %></td>
-                <td><%= updates.product %><%= i %></td>
+                <form id="form_" +i action='/edit' method='POST'>
+                    <td><%= updates[i].kb %><%= i %></td>
+                    <td><%= updates[i].classification %></td>
+                    <td><%= updates[i].status %></td>
+                    <td><%= updates[i].details %></td>
+                    <td><%= updates[i].product %></td>
+                    <td><input type="button" value="Edit"></td>
+                </form>
             </tr>
             <% } %>
         </tbody>

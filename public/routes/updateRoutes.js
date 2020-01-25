@@ -20,7 +20,6 @@ router.get('/showUpdates', (req, res) => {
     join classification c on u.classification_id = c.id
     join product p on u.product_id = p.id;`, (err, result, fields) => {
         if (err) throw err;
-        console.log(result);
         const queryResult = result.map(item => {
             newItem = {
                 kb: item.KBArticle,
@@ -31,16 +30,15 @@ router.get('/showUpdates', (req, res) => {
             }
             return newItem;
         })
-        console.log(queryResult);
         res.render('pages/home', {
-            page: '/main',
+            page: 'main',
             updates: queryResult
         })
     })
 });
 
-router.get('/addUpdate', (req, res) => {
-    res.render('pages/home', { page: 'addNotes' })
+router.get('/add', (req, res) => {
+    res.render('pages/home', { page: 'add' })
 })
 
 //////////////////////////////////////////
