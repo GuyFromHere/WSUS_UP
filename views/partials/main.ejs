@@ -13,11 +13,11 @@
             <% for ( let i = 0; i < updates.length; i++ ) { %>
             <tr>
                 <form id="form_" +i action='/edit' method='POST'>
-                    <td><%= updates[i].kb %><%= i %></td>
-                    <td><%= updates[i].classification %></td>
-                    <td><%= updates[i].status %></td>
-                    <td><%= updates[i].details %></td>
-                    <td><%= updates[i].product %></td>
+                    <td><%= updates[i].KBArticle %><%= i %></td>
+                    <td><%= updates[i].Classification %></td>
+                    <td><%= updates[i].Status %></td>
+                    <td><%= updates[i].Details %></td>
+                    <td><%= updates[i].Product %></td>
                     <td><input type="button" value="Edit"></td>
                 </form>
             </tr>
