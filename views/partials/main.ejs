@@ -1,27 +1,35 @@
 <div id="container">
-    <h1>Main table for stuff</h1>
+	<h1>WSUS Tracker</h1>
 
-    <table>
-        <thead>
-            <th>KB Article</th>
-            <th>Classification</th>
-            <th>Status</th>
-            <th>Details</th>
-            <th>Product</th>
-        </thead>
-        <tbody>
-            <% for ( let i = 0; i < updates.length; i++ ) { %>
-            <tr>
-                <form id="form_" +i action='/edit' method='POST'>
-                    <td><%= updates[i].KBArticle %><%= i %></td>
-                    <td><%= updates[i].Classification %></td>
-                    <td><%= updates[i].Status %></td>
-                    <td><%= updates[i].Details %></td>
-                    <td><%= updates[i].Product %></td>
-                    <td><input type="button" value="Edit"></td>
-                </form>
-            </tr>
+	<table>
+		<thead>
+			<th>KB Article</th>
+			<th>Classification</th>
+			<th>Status</th>
+			<th>Details</th>
+			<th>Product</th>
+		</thead>
+		<tbody>
+            <form id="form_"+i action="/edit" method="POST"></form>
+			<% for ( let i = 0; i < updates.length; i++ ) { %>
+			<tr>
+					<td class="editKb"><%= updates[i].KBArticle %><%= i %></td>
+					<td class="editClassification"><%= updates[i].Classification %></td>
+					<td class="editStatus"><%= updates[i].Status %></td>
+					<td class="editDetails"><%= updates[i].Details %></td>
+					<td class="editProduct"><%= updates[i].Product %></td>
+					<td><input type="button" class="editBtn" data-id="<%= i %>"value="Edit" /></td>
+			</tr>
             <% } %>
-        </tbody>
-    </table>
+            </form>
+			<form id="form_add" action="/add" method="POST">
+				<td><input type="text" id="addKb" name="kbArticle" /></td>
+				<td><input type="text" id="addClassification" name="classification" /></td></td>
+				<td><input type="text" id="addStatus" name="status" /></td>
+				<td><input  type="text" id="addDetails" name="details" /></td>
+				<td><input  type="text" id="addProduct" name="product" /></td>
+				<td><input type="button" class="addBtn" value="Add" /></td>
+			</form>
+		</tbody>
+	</table>
 </div>

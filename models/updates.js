@@ -1,22 +1,22 @@
-const orm = require('../config/orm');
+const orm = require("../config/orm");
 
 const updates = {
-    all: (cb) => {
-        orm.selectAll((res) => {
-            cb(res);
-        })
-    },
-    /*add: (data, cb) => {
-        orm.addQuote(data, (res) => {
-            cb(res);
-        });
-    },
-    update: (devourState, id, cb) => {
-        // pass devourState from browser > controller > model and finally to orm
-        orm.updateOne(devourState, id, (res) => {
-            cb(res);
-        });
-    } */
+	all: cb => {
+		orm.selectAll(res => {
+			cb(res);
+		});
+	},
+	update: (id, field, value, cb) => {
+		// pass devourState from browser > controller > model and finally to orm
+		orm.updateOne(id, field, value, res => {
+			cb(res);
+		});
+	},
+	add: (data, cb) => {
+		orm.addUpdate(data, res => {
+			cb(res);
+		});
+	}
 };
 
 module.exports = updates;

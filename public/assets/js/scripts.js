@@ -1,6 +1,20 @@
+$(function() {
+	$(".editBtn").on("click", e => {
+		e.preventDefault();
+		const targetEl = $(e.target);
+		console.log("pub js script editBtn");
+		console.log(targetEl.data("id"));
+	});
 
-$(function () {
-    $('#addForm').on("submit", (e) => {
+	$(".addBtn").on("click", e => {
+		e.preventDefault();
+		const targetEl = $(e.target);
+		console.log("pub js script addBtn");
+		console.log("kb:");
+		console.log($("#addKb").val());
+	});
+
+	/*  $('#addForm').on("submit", (e) => {
         // do something
         const age = $('#newAge').val();
         const quote = $('#newQuote').val();
@@ -19,5 +33,5 @@ $(function () {
             console.log(newQuote);
             location.reload();
         })
-    })
-})
+    }) */
+});

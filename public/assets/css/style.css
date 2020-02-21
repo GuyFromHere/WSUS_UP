@@ -1,0 +1,14 @@
+* {
+	font-family: "Montserrat";
+}
+
+table,
+td {
+	padding: 5px;
+	border: 1px solid black;
+}
+
+input {
+	padding: 5px;
+	border: none;
+}

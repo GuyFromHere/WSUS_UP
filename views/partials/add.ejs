@@ -1,6 +1,32 @@
 <div id="container">
-    <form id="form_" +i action='/edit' method='POST'>
-        <label for="kbArticle">KB Article:</label>
-        <input type="text" name="kbArticle">
-    </form>
+	<form id="form_" +i action="/edit" method="POST">
+		<label for="kbArticle">KB Article:</label>
+		<input type="text" name="kbArticle" />
+	</form>
+</div>
+
+<div id="container">
+	<h1>Main table for stuff</h1>
+
+	<table>
+		<thead>
+			<th>KB Article</th>
+			<th>Classification</th>
+			<th>Status</th>
+			<th>Details</th>
+			<th>Product</th>
+		</thead>
+		<tbody>
+			<tr>
+				<form id="form_" +i action="/edit" method="POST">
+					<td><input type="text" name="kbArticle" /></td>
+					<td><input type="text" name="classification/td></td>
+					<td><input type="text" name="status" /></td>
+					<td><input type="text" name="details" /></td>
+					<td><input type="text" name="product" /></td>
+					<td><input type="button" value="Add" /></td>
+				</form>
+			</tr>
+		</tbody>
+	</table>
 </div>
