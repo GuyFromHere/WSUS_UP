@@ -14,6 +14,12 @@ const orm = {
 			}
 		);
 	},
+	getClassifications: cb => {
+		connection.query(`select * from classification;`, (err, result, fields) => {
+			if (err) throw err;
+			cb(result);
+		});
+	},
 	//called when user edits an update on the update page
 	updateOne: (id, field, value, cb) => {
 		console.log("orm updateOne");
@@ -23,8 +29,17 @@ const orm = {
 		//connection.query(`select `)
 	},
 	addUpdate: (data, cb) => {
-		console.log("orm addUpdate");
-		console.log(data);
+		connection.query(
+			`insert into wupdate (
+            kb, classification_id, status_id, details, product_id) 
+            values (?, ?, ?, ?, ?);`,
+			data,
+			(err, result) => {
+				if (err) throw err;
+				console.log("orm: " + data);
+				cb(result);
+			}
+		);
 	}
 };
 

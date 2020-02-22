@@ -24,10 +24,28 @@
             </form>
 			<form id="form_add" action="/add" method="POST">
 				<td><input type="text" id="addKb" name="kbArticle" /></td>
-				<td><input type="text" id="addClassification" name="classification" /></td></td>
-				<td><input type="text" id="addStatus" name="status" /></td>
+				<td>
+					<select id="addClassification">
+						<% for ( let j = 0; j < classifications.length; j++) {%>
+						<option value="<%= classifications[j].value %>" data-id="<%= classifications[j].id %>"><%= classifications[j].value %></option>
+						<% } %>
+					</select>
+				</td>
+				<td>
+					<select id="addStatus">
+						<% for ( let j = 0; j < statuses.length; j++) {%>
+						<option value="<%= statuses[j].value %>" data-id="<%= statuses[j].id %>"><%= statuses[j].value %></option>
+						<% } %>
+					</select>
+				</td>
 				<td><input  type="text" id="addDetails" name="details" /></td>
-				<td><input  type="text" id="addProduct" name="product" /></td>
+				<td>
+					<select id="addProduct">
+						<% for ( let j = 0; j < products.length; j++) {%>
+						<option value="<%= products[j].value %>" data-id="<%= products[j].id %>"><%= products[j].value %></option>
+						<% } %>
+					</select>
+				</td>
 				<td><input type="button" class="addBtn" value="Add" /></td>
 			</form>
 		</tbody>

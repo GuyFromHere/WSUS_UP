@@ -8,10 +8,22 @@ $(function() {
 
 	$(".addBtn").on("click", e => {
 		e.preventDefault();
+		const newUpdate = {};
 		const targetEl = $(e.target);
+		newUpdate.kb = $("#addKb").val();
+		newUpdate.classification = $("#addClassification").data("id");
+		newUpdate.status = $("#addStatus").data("id");
+		newUpdate.details = $("#addDetails").val();
+		newUpdate.product = $("#addProduct").data("id");
+
 		console.log("pub js script addBtn");
-		console.log("kb:");
-		console.log($("#addKb").val());
+		console.log(newUpdate);
+		$.ajax("/add", {
+			type: "POST",
+			data: newUpdate
+		}).then(() => {
+			location.reload();
+		});
 	});
 
 	/*  $('#addForm').on("submit", (e) => {
