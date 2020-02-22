@@ -11,13 +11,14 @@ $(function() {
 		const newUpdate = {};
 		const targetEl = $(e.target);
 		newUpdate.kb = $("#addKb").val();
-		newUpdate.classification = $("#addClassification").data("id");
-		newUpdate.status = $("#addStatus").data("id");
+		newUpdate.classification = $("#addClassification").val();
+		newUpdate.status = $("#addStatus").val();
 		newUpdate.details = $("#addDetails").val();
-		newUpdate.product = $("#addProduct").data("id");
+		newUpdate.product = $("#addProduct").val();
 
 		console.log("pub js script addBtn");
 		console.log(newUpdate);
+		//console.log($('#addClassification').options[$('#addClassification').selected()])
 		$.ajax("/add", {
 			type: "POST",
 			data: newUpdate
