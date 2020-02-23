@@ -12,3 +12,7 @@ input {
 	padding: 5px;
 	border: none;
 }
+
+.edit {
+background-color: gold;
+}

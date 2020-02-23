@@ -10,19 +10,17 @@
 			<th>Product</th>
 		</thead>
 		<tbody>
-            <form id="form_"+i action="/edit" method="POST"></form>
 			<% for ( let i = 0; i < updates.length; i++ ) { %>
-			<tr>
-					<td class="editKb"><%= updates[i].KBArticle %><%= i %></td>
-					<td class="editClassification"><%= updates[i].Classification %></td>
-					<td class="editStatus"><%= updates[i].Status %></td>
-					<td class="editDetails"><%= updates[i].Details %></td>
-					<td class="editProduct"><%= updates[i].Product %></td>
-					<td><input type="button" class="editBtn" data-id="<%= i %>"value="Edit" /></td>
+			<tr id="row<%= i %>" class="show">
+				<td id="kb<%= i %>" class="updateInfo"><%= updates[i].KBArticle %><%= i %></td>
+				<td id="classification<%= i %>" class="updateInfo"><%= updates[i].Classification %></td>
+				<td id="status<%= i %>" class="updateInfo"><%= updates[i].Status %></td>
+				<td id="details<%= i %>" class="updateInfo"><%= updates[i].Details %></td>
+				<td id="product<%= i %>" class="updateInfo"><%= updates[i].Product %></td>
+				<td><input type="submit" class="editBtn" data-id="<%= i %>" value="Edit" /></td>
 			</tr>
             <% } %>
-            </form>
-			<form id="form_add" action="/add" method="POST">
+			<form id="form_add">
 				<td><input type="text" id="addKb" name="kbArticle" /></td>
 				<td>
 					<select id="addClassification">

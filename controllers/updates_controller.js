@@ -16,9 +16,9 @@ const products = [
 	{ id: 1, value: "Server 2019" },
 	{ id: 2, value: "Server 2016" },
 	{ id: 3, value: "Server 2012" },
-	{ id: 3, value: "Windows 10 1803" },
-	{ id: 4, value: "Windows 10 1903" },
-	{ id: 5, value: "Office 2010" }
+	{ id: 4, value: "Windows 10 1803" },
+	{ id: 5, value: "Windows 10 1903" },
+	{ id: 6, value: "Office 2010" }
 ];
 const statuses = [
 	{ id: 1, value: "Unapproved" },
@@ -44,7 +44,7 @@ router.get("/", (req, res) => {
 	res.render("pages/home", { page: "add" });
 }); */
 
-router.post("/update", (req, res) => {
+router.post("/edit", (req, res) => {
 	// update an update
 	console.log("updates controller /update");
 

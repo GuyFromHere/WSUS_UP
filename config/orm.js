@@ -26,7 +26,7 @@ const orm = {
 		console.log(id); // id of the row
 		console.log(field); // field to update
 		console.log(value); // new value for field
-		//connection.query(`select `)
+		//connection.query(`select `) 	
 	},
 	addUpdate: (data, cb) => {
 		connection.query(
@@ -36,7 +36,6 @@ const orm = {
 			data,
 			(err, result) => {
 				if (err) throw err;
-				console.log("orm: " + data);
 				cb(result);
 			}
 		);
