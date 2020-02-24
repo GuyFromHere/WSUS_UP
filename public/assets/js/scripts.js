@@ -50,6 +50,7 @@ $(function() {
 		const status = $('#status' + uid).text();
 		const details = $('#details' + uid).text();
 		const product = $('#product' + uid).text();
+		const url = $('#url' + uid).attr('href');
 		const editEls = `
 			<form id="${uid}">
 				<td><input type="text" id="editKb${uid}" value="${kb}"></td>
@@ -69,6 +70,7 @@ $(function() {
 					getSelectOptions(product, products)+`
 					</select>
 				</td>
+				<td><input id="editUrl${uid}" type="text" value="${url}"></td>
 				<td><input type="submit" id="submitEditBtn" class="submitEditBtn" data-uid="${uid}" value="Send" /></td>
 			</form>`;
 		targetRow.html(editEls);
@@ -84,6 +86,7 @@ $(function() {
 		editUpdate.status = $("#editStatus" + uid).val();
 		editUpdate.classification = $("#editClassification" + uid).val();
 		editUpdate.product = $("#editProduct" + uid).val();
+		editUpdate.url = $("#editUrl" + uid).val();
 		editUpdate.uid = uid;
 		$.ajax("/edit", {
 			type: "POST",

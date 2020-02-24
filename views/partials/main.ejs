@@ -8,6 +8,7 @@
 			<th>Status</th>
 			<th>Details</th>
 			<th>Product</th>
+			<th>URL</th>
 		</thead>
 		<tbody>
 			<% for ( let i = 0; i < updates.length; i++ ) { %>
@@ -17,6 +18,11 @@
 				<td id="status<%= updates[i].uid %>" class="updateInfo"><%= updates[i].Status %></td>
 				<td id="details<%= updates[i].uid %>" class="updateInfo"><%= updates[i].Details %></td>
 				<td id="product<%= updates[i].uid %>" class="updateInfo"><%= updates[i].Product %></td>
+				<td class="updateInfo">
+					<% if (updates[i].URL) { %>
+						<a href="<%= updates[i].URL %>" id="url<%= updates[i].uid %>" target="_blank">Link</a>
+					<% } %>	
+				</td>
 				<td><input type="submit" class="editBtn" data-uid="<%= updates[i].uid %>" value="Edit" /></td>
 			</tr>
             <% } %>
@@ -44,6 +50,7 @@
 						<% } %>
 					</select>
 				</td>
+				<td><input type="text" id="addUrl" name="URL" /></td>
 				<td><input type="button" class="addBtn" value="Add" /></td>
 			</form>
 		</tbody>
