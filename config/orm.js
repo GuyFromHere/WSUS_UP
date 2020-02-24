@@ -1,9 +1,18 @@
 const connection = require("./connection");
 
+const insertQuery = `insert into wupdate (
+	kb, classification_id, status_id, details, product_id) 
+	values (?, ?, ?, ?, ?);`;
+
+	//, classification_id = ?, status_id = ?, details = '?', product_id = ? 
+const updateQuery = `update wupdate 
+	set kb = ?, classification_id = ?, status_id = ?, details = ?, product_id = ? 
+	where id = ?;`;
+ 
 const orm = {
 	selectAll: cb => {
 		connection.query(
-			`select u.kb as KBArticle, u.details as Details, s.status as Status, c.classification as Classification, p.product as Product 
+		`select u.id as uid, u.kb as KBArticle, u.details as Details, s.status as Status, c.classification as Classification, p.product as Product 
         from wupdate u
         join status s on u.status_id = s.id
         join classification c on u.classification_id = c.id
@@ -21,19 +30,19 @@ const orm = {
 		});
 	},
 	//called when user edits an update on the update page
-	updateOne: (id, field, value, cb) => {
-		console.log("orm updateOne");
-		console.log(id); // id of the row
-		console.log(field); // field to update
-		console.log(value); // new value for field
-		//connection.query(`select `) 	
+	updateOne: (data, cb) => {
+		connection.query(updateQuery, data, (err, result, fields) => {
+			if (err) throw err;
+			console.log('Rows affected:', result.affectedRows);
+			cb(result);
+		})
 	},
 	addUpdate: (data, cb) => {
+		console.log('orm add');
+		console.log(data);
+		
 		connection.query(
-			`insert into wupdate (
-            kb, classification_id, status_id, details, product_id) 
-            values (?, ?, ?, ?, ?);`,
-			data,
+			insertQuery,
 			(err, result) => {
 				if (err) throw err;
 				cb(result);

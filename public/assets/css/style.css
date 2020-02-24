@@ -16,3 +16,7 @@ input {
 .edit {
 background-color: gold;
 }
+
+.submitEditBtn:active {
+	background-color: gold;
+}

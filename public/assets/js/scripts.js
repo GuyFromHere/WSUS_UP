@@ -1,6 +1,5 @@
 $(function() {
 
-
 	const classifications = [
 		{
 			id: 1,
@@ -41,56 +40,59 @@ $(function() {
 
 	// toggle .edit and .show 
 	$(".editBtn").on("click", e => {
-			console.log('here')
 		e.preventDefault();
 		// get row to update
-		const rowId = $(e.target).data("id");
-		const targetRow = $('#row' + rowId);
+		const uid = $(e.target).data("uid");
+		const targetRow = $('#row' + uid);
 		// get current values
-		const kb = $('#kb' + rowId).text();
-		const classification = $('#classification' + rowId).text();
-		const status = $('#status' + rowId).text();
-		const details = $('#details' + rowId).text();
-		const product = $('#product' + rowId).text();
+		const kb = $('#kb' + uid).text();
+		const classification = $('#classification' + uid).text();
+		const status = $('#status' + uid).text();
+		const details = $('#details' + uid).text();
+		const product = $('#product' + uid).text();
 		const editEls = `
-			<form id="${rowId}" action="/edit" method="POST">
-				<td><input type="text" value="${kb}"></td>
+			<form id="${uid}">
+				<td><input type="text" id="editKb${uid}" value="${kb}"></td>
 				<td>
-					<select id="editClassification${rowId}">`+
+					<select id="editClassification${uid}">`+
 					getSelectOptions(classification, classifications)+`
 					</select>
 				</td>
 				<td>
-					<select id="editStatus${rowId}">`+
+					<select id="editStatus${uid}">`+
 					getSelectOptions(status, statuses) +`
 					</select>
 				</td>
-				<td><input id="editDetails${rowId}" type="text" value="${details}"></td>
+				<td><input id="editDetails${uid}" type="text" value="${details}"></td>
 				<td>
-					<select id="editProducts${rowId}">`+
+					<select id="editProduct${uid}">`+
 					getSelectOptions(product, products)+`
 					</select>
 				</td>
-				<td><input type="submit" class="submitEditBtn" data-id="${rowId}" value="Send" /></td>
+				<td><input type="submit" id="submitEditBtn" class="submitEditBtn" data-uid="${uid}" value="Send" /></td>
 			</form>`;
 		targetRow.html(editEls);
 	});
 
-	$(".submitEditBtn").on("click", e => {
-		console.log('scripts submiteditbtn');
+	// handle update events
+	$(document).on("click", ".submitEditBtn", e => {
 		e.preventDefault();
-		console.log('scripts submiteditbtn');
-		const rowId = $(e.target).data('id');
+		const uid = $(e.target).data('uid');
 		const editUpdate = {};
-		editUpdate.kb = $("#addKb" + rowId).val();
-		editUpdate.classification = $("#addClassification" + rowId).val();
-		editUpdate.status = $("#addStatus" + rowId).val();
-		editUpdate.details = $("#addDetails" + rowId).val();
-		editUpdate.product = $("#addProduct" + rowId).val();
-		console.log('scripts submitEditBtn');
-		console.log(editUpdate);
+		editUpdate.kb = $("#editKb" + uid).val();
+		editUpdate.details = $("#editDetails" + uid).val();
+		editUpdate.status = $("#editStatus" + uid).val();
+		editUpdate.classification = $("#editClassification" + uid).val();
+		editUpdate.product = $("#editProduct" + uid).val();
+		editUpdate.uid = uid;
+		$.ajax("/edit", {
+			type: "POST",
+			data: editUpdate
+		}).then(() => {
+			location.reload();
+		})
 	}) 
-
+ 
 	$(".addBtn").on("click", e => {
 		e.preventDefault();
 		const newUpdate = {};

@@ -6,9 +6,9 @@ const updates = {
 			cb(res);
 		});
 	},
-	update: (id, field, value, cb) => {
+	edit: (data, cb) => {
 		// pass devourState from browser > controller > model and finally to orm
-		orm.updateOne(id, field, value, res => {
+		orm.updateOne(data, res => {
 			cb(res);
 		});
 	},

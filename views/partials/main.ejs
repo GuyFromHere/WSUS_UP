@@ -11,13 +11,13 @@
 		</thead>
 		<tbody>
 			<% for ( let i = 0; i < updates.length; i++ ) { %>
-			<tr id="row<%= i %>" class="show">
-				<td id="kb<%= i %>" class="updateInfo"><%= updates[i].KBArticle %><%= i %></td>
-				<td id="classification<%= i %>" class="updateInfo"><%= updates[i].Classification %></td>
-				<td id="status<%= i %>" class="updateInfo"><%= updates[i].Status %></td>
-				<td id="details<%= i %>" class="updateInfo"><%= updates[i].Details %></td>
-				<td id="product<%= i %>" class="updateInfo"><%= updates[i].Product %></td>
-				<td><input type="submit" class="editBtn" data-id="<%= i %>" value="Edit" /></td>
+			<tr id="row<%= updates[i].uid %>" class="show">
+				<td id="kb<%= updates[i].uid %>" class="updateInfo"><%= updates[i].KBArticle %></td>
+				<td id="classification<%= updates[i].uid %>" class="updateInfo"><%= updates[i].Classification %></td>
+				<td id="status<%= updates[i].uid %>" class="updateInfo"><%= updates[i].Status %></td>
+				<td id="details<%= updates[i].uid %>" class="updateInfo"><%= updates[i].Details %></td>
+				<td id="product<%= updates[i].uid %>" class="updateInfo"><%= updates[i].Product %></td>
+				<td><input type="submit" class="editBtn" data-uid="<%= updates[i].uid %>" value="Edit" /></td>
 			</tr>
             <% } %>
 			<form id="form_add">

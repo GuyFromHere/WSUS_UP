@@ -39,31 +39,18 @@ router.get("/", (req, res) => {
 	});
 });
 
-/* router.get("/add", (req, res) => {
-	// show updates page
-	res.render("pages/home", { page: "add" });
-}); */
-
 router.post("/edit", (req, res) => {
 	// update an update
 	console.log("updates controller /update");
-
-	res.render("pages/home", {
-		page: "main",
-		updates: data
-	});
+	updates.edit(
+		[req.body.kb, req.body.classification, req.body.status, req.body.details, req.body.product, req.body.uid],
+		result => {
+			res.json({ id: result.insertId });
+		})
 });
 
 router.post("/add", (req, res) => {
 	// add new update
-	console.log("updates controller post add");
-	console.log([
-		req.body.kb,
-		req.body.classification,
-		req.body.status,
-		req.body.details,
-		req.body.product
-	]);
 	updates.add(
 		[req.body.kb, req.body.classification, req.body.status, req.body.details, req.body.product],
 		result => {
