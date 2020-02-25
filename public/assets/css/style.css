@@ -2,10 +2,29 @@
 	font-family: "Montserrat";
 }
 
+li {
+	list-style-type: none;
+	float: left;
+	/* margin: 10px; */
+	clear: both;
+}
+
 table,
 td {
 	padding: 5px;
 	border: 1px solid black;
+}
+
+th {
+	font-size: 18pt;
+}
+
+th img {
+	height: 18px;
+}
+
+th img:active {
+	opacity: 0;
 }
 
 input {
@@ -14,7 +33,7 @@ input {
 }
 
 .edit {
-background-color: gold;
+	background-color: gold;
 }
 
 .submitEditBtn:active {

@@ -41,26 +41,34 @@ router.get("/", (req, res) => {
 
 router.post("/edit", (req, res) => {
 	// update an update
-	console.log("updates controller /update");
 	updates.edit(
-		[req.body.kb, req.body.classification, req.body.status, req.body.details, req.body.product, req.body.uid],
+		[
+			req.body.kb,
+			req.body.classification,
+			req.body.status,
+			req.body.details,
+			req.body.product,
+			req.body.url,
+			req.body.uid
+		],
 		result => {
 			res.json({ id: result.insertId });
-		})
+		}
+	);
 });
 
 router.post("/add", (req, res) => {
 	// add new update
 	updates.add(
-		[req.body.kb, req.body.classification, req.body.status, req.body.details, req.body.product],
+		[
+			req.body.kb,
+			req.body.classification,
+			req.body.status,
+			req.body.details,
+			req.body.product,
+			req.body.url
+		],
 		result => {
-			const newObj = {
-				kb: req.body.kb,
-				classification: req.body.classification,
-				status: req.body.status,
-				details: req.body.details,
-				product: req.body.product
-			};
 			res.json({ id: result.insertId });
 		}
 	);

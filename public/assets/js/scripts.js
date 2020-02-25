@@ -1,5 +1,4 @@
 $(function() {
-
 	const classifications = [
 		{
 			id: 1,
@@ -28,46 +27,55 @@ $(function() {
 	// marks the currently selected option as selected in the edit form
 	const getSelectOptions = function(selected, options) {
 		let outStr = "";
-		for ( let i = 0; i < options.length; i++ ) {
-			if ( options[i].value == selected ) {
-				outStr += '<option value="' + options[i].id +'" selected>' + options[i].value + '</option>'
+		for (let i = 0; i < options.length; i++) {
+			if (options[i].value == selected) {
+				outStr +=
+					'<option value="' +
+					options[i].id +
+					'" selected>' +
+					options[i].value +
+					"</option>";
 			} else {
-				outStr += '<option value="' + options[i].id + '">' + options[i].value + '</option>'
+				outStr += '<option value="' + options[i].id + '">' + options[i].value + "</option>";
 			}
 		}
 		return outStr;
-	}
+	};
 
-	// toggle .edit and .show 
+	// toggle .edit and .show
 	$(".editBtn").on("click", e => {
 		e.preventDefault();
 		// get row to update
 		const uid = $(e.target).data("uid");
-		const targetRow = $('#row' + uid);
+		const targetRow = $("#row" + uid);
 		// get current values
-		const kb = $('#kb' + uid).text();
-		const classification = $('#classification' + uid).text();
-		const status = $('#status' + uid).text();
-		const details = $('#details' + uid).text();
-		const product = $('#product' + uid).text();
-		const url = $('#url' + uid).attr('href');
-		const editEls = `
+		const kb = $("#kb" + uid).text();
+		const classification = $("#classification" + uid).text();
+		const status = $("#status" + uid).text();
+		const details = $("#details" + uid).text();
+		const product = $("#product" + uid).text();
+		const url = $("#url" + uid).attr("href");
+		const editEls =
+			`
 			<form id="${uid}">
 				<td><input type="text" id="editKb${uid}" value="${kb}"></td>
 				<td>
-					<select id="editClassification${uid}">`+
-					getSelectOptions(classification, classifications)+`
+					<select id="editClassification${uid}">` +
+			getSelectOptions(classification, classifications) +
+			`
 					</select>
 				</td>
 				<td>
-					<select id="editStatus${uid}">`+
-					getSelectOptions(status, statuses) +`
+					<select id="editStatus${uid}">` +
+			getSelectOptions(status, statuses) +
+			`
 					</select>
 				</td>
 				<td><input id="editDetails${uid}" type="text" value="${details}"></td>
 				<td>
-					<select id="editProduct${uid}">`+
-					getSelectOptions(product, products)+`
+					<select id="editProduct${uid}">` +
+			getSelectOptions(product, products) +
+			`
 					</select>
 				</td>
 				<td><input id="editUrl${uid}" type="text" value="${url}"></td>
@@ -76,26 +84,35 @@ $(function() {
 		targetRow.html(editEls);
 	});
 
+	$(".sortImg").on("click", e => {
+		e.preventDefault();
+		alert("pub scripts sort");
+	});
+
 	// handle update events
 	$(document).on("click", ".submitEditBtn", e => {
 		e.preventDefault();
-		const uid = $(e.target).data('uid');
+		const uid = $(e.target).data("uid");
 		const editUpdate = {};
 		editUpdate.kb = $("#editKb" + uid).val();
 		editUpdate.details = $("#editDetails" + uid).val();
 		editUpdate.status = $("#editStatus" + uid).val();
 		editUpdate.classification = $("#editClassification" + uid).val();
 		editUpdate.product = $("#editProduct" + uid).val();
+		//if ($("#editUrl" + uid).val()) {
 		editUpdate.url = $("#editUrl" + uid).val();
+		//} else {
+		//	editUpdate.url = "&nbsp;";
+		//}
 		editUpdate.uid = uid;
 		$.ajax("/edit", {
 			type: "POST",
 			data: editUpdate
 		}).then(() => {
 			location.reload();
-		})
-	}) 
- 
+		});
+	});
+
 	$(".addBtn").on("click", e => {
 		e.preventDefault();
 		const newUpdate = {};
@@ -104,7 +121,9 @@ $(function() {
 		newUpdate.status = $("#addStatus").val();
 		newUpdate.details = $("#addDetails").val();
 		newUpdate.product = $("#addProduct").val();
-
+		newUpdate.url = $("#addUrl").val();
+		console.log("scripts add");
+		console.log(newUpdate);
 		$.ajax("/add", {
 			type: "POST",
 			data: newUpdate
@@ -112,5 +131,4 @@ $(function() {
 			location.reload();
 		});
 	});
-
 });
