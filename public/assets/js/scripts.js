@@ -22,6 +22,7 @@ $(function() {
 		{ id: 2, value: "Approved" },
 		{ id: 3, value: "Declined" }
 	];
+	console.log("script test1");
 
 	// takes select options list and outputs it to edit inputs
 	// marks the currently selected option as selected in the edit form
@@ -42,6 +43,14 @@ $(function() {
 		return outStr;
 	};
 
+	// user clicks td element, get sibling td elements and change their class
+	const selectRow = function(target) {
+		const siblings = target.siblings("td");
+		$(".selectedRow").removeClass("selectedRow");
+		target.addClass("selectedRow");
+		siblings.addClass("selectedRow");
+	};
+	console.log("script test2");
 	// toggle .edit and .show
 	$(".editBtn").on("click", e => {
 		e.preventDefault();
@@ -84,10 +93,45 @@ $(function() {
 		targetRow.html(editEls);
 	});
 
+	console.log("script test3");
+
 	$(".sortImg").on("click", e => {
 		e.preventDefault();
-		alert("pub scripts sort");
+		// set default sort direction
+		let direction = "desc";
+		if ($(e.target).hasClass(".desc")) {
+			$(e.target)
+				.removeClass(".desc")
+				.addClass(".asc");
+			direction = "asc";
+		} else if ($(e.target).hasClass(".asc")) {
+			$(e.target)
+				.removeClass(".asc")
+				.addClass(".desc");
+			direction = "desc";
+		} else {
+			$(e.target).addClass(".desc");
+		}
+		$.ajax("/sort/" + $(e.target).data("col") + "/" + direction, {
+			type: "GET"
+		}).then(response => {
+			// response
+			console.log("script sort response");
+			//console.log(response);
+			// lulz this works but it's terrible
+			//$("html").html(response);
+
+			// reloads the page but does not load data from route response...
+			//location.reload();
+		});
 	});
+
+	$("td").on("click", e => {
+		e.preventDefault();
+		selectRow($(e.target));
+	});
+
+	console.log("script test4");
 
 	// handle update events
 	$(document).on("click", ".submitEditBtn", e => {
@@ -99,11 +143,7 @@ $(function() {
 		editUpdate.status = $("#editStatus" + uid).val();
 		editUpdate.classification = $("#editClassification" + uid).val();
 		editUpdate.product = $("#editProduct" + uid).val();
-		//if ($("#editUrl" + uid).val()) {
 		editUpdate.url = $("#editUrl" + uid).val();
-		//} else {
-		//	editUpdate.url = "&nbsp;";
-		//}
 		editUpdate.uid = uid;
 		$.ajax("/edit", {
 			type: "POST",
@@ -112,6 +152,8 @@ $(function() {
 			location.reload();
 		});
 	});
+
+	console.log("script test5");
 
 	$(".addBtn").on("click", e => {
 		e.preventDefault();
@@ -131,4 +173,6 @@ $(function() {
 			location.reload();
 		});
 	});
+
+	console.log("script test6");
 });

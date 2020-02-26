@@ -6,8 +6,12 @@ const updates = {
 			cb(res);
 		});
 	},
+	sort: (data, cb) => {
+		orm.sort(data, res => {
+			cb(res);
+		});
+	},
 	edit: (data, cb) => {
-		// pass devourState from browser > controller > model and finally to orm
 		orm.updateOne(data, res => {
 			cb(res);
 		});

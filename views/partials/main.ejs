@@ -3,17 +3,26 @@
 	added to DB...
 	<table>
 		<thead>
-			<th>KB Article <img class="sortImg" src="./assets/img/sort-24.png" /></th>
-			<th>Classification <img class="sortImg" src="./assets/img/sort-24.png" /></th>
-			<th>Status <img class="sortImg" src="./assets/img/sort-24.png" /></th>
-			<th>Details <img class="sortImg" src="./assets/img/sort-24.png" /></th>
-			<th>Product <img class="sortImg" src="./assets/img/sort-24.png" /></th>
+			<th>KB Article <img class="sortImg" src="./assets/img/sort-24.png" data-col="kb" /></th>
+			<th>
+				Classification
+				<img class="sortImg" src="./assets/img/sort-24.png" data-col="classification" />
+			</th>
+			<th>Status <img class="sortImg" src="./assets/img/sort-24.png" data-col="status" /></th>
+			<th>
+				Details <img class="sortImg" src="./assets/img/sort-24.png" data-col="details" />
+			</th>
+			<th>
+				Product <img class="sortImg" src="./assets/img/sort-24.png" data-col="product" />
+			</th>
 			<th>URL <img class="sortImg" src="./assets/img/sort-24.png" /></th>
 		</thead>
 		<tbody>
 			<% for ( let i = 0; i < updates.length; i++ ) { %>
 			<tr id="row<%= updates[i].uid %>" class="show">
-				<td id="kb<%= updates[i].uid %>" class="updateInfo"><%= updates[i].KBArticle %></td>
+				<td id="kb<%= updates[i].uid %>" class="updateInfo">
+					<%= updates[i].KBArticle %>
+				</td>
 				<td id="classification<%= updates[i].uid %>" class="updateInfo">
 					<%= updates[i].Classification %>
 				</td>

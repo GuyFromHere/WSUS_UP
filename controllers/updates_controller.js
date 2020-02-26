@@ -39,6 +39,20 @@ router.get("/", (req, res) => {
 	});
 });
 
+router.get("/sort/:column/:direction", (req, res) => {
+	updates.sort([req.params.column, req.params.direction], result => {
+		console.log("controller sort result");
+		console.log(result);
+		res.render("pages/home", {
+			page: "main",
+			classifications: classifications,
+			statuses: statuses,
+			products: products,
+			updates: result
+		});
+	});
+});
+
 router.post("/edit", (req, res) => {
 	// update an update
 	updates.edit(
