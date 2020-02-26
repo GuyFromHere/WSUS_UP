@@ -22,7 +22,6 @@ $(function() {
 		{ id: 2, value: "Approved" },
 		{ id: 3, value: "Declined" }
 	];
-	console.log("script test1");
 
 	// takes select options list and outputs it to edit inputs
 	// marks the currently selected option as selected in the edit form
@@ -50,7 +49,7 @@ $(function() {
 		target.addClass("selectedRow");
 		siblings.addClass("selectedRow");
 	};
-	console.log("script test2");
+
 	// toggle .edit and .show
 	$(".editBtn").on("click", e => {
 		e.preventDefault();
@@ -65,27 +64,23 @@ $(function() {
 		const product = $("#product" + uid).text();
 		const url = $("#url" + uid).attr("href");
 		const editEls =
-			`
-			<form id="${uid}">
+			`<form id="${uid}">
 				<td><input type="text" id="editKb${uid}" value="${kb}"></td>
 				<td>
 					<select id="editClassification${uid}">` +
 			getSelectOptions(classification, classifications) +
-			`
-					</select>
+			`</select>
 				</td>
 				<td>
 					<select id="editStatus${uid}">` +
 			getSelectOptions(status, statuses) +
-			`
-					</select>
+			`</select>
 				</td>
 				<td><input id="editDetails${uid}" type="text" value="${details}"></td>
 				<td>
 					<select id="editProduct${uid}">` +
 			getSelectOptions(product, products) +
-			`
-					</select>
+			`</select>
 				</td>
 				<td><input id="editUrl${uid}" type="text" value="${url}"></td>
 				<td><input type="submit" id="submitEditBtn" class="submitEditBtn" data-uid="${uid}" value="Send" /></td>
@@ -93,36 +88,22 @@ $(function() {
 		targetRow.html(editEls);
 	});
 
-	console.log("script test3");
-
 	$(".sortImg").on("click", e => {
 		e.preventDefault();
 		// set default sort direction
-		let direction = "desc";
-		if ($(e.target).hasClass(".desc")) {
-			$(e.target)
-				.removeClass(".desc")
-				.addClass(".asc");
-			direction = "asc";
-		} else if ($(e.target).hasClass(".asc")) {
-			$(e.target)
-				.removeClass(".asc")
-				.addClass(".desc");
+		let direction;
+		if ($(e.target).hasClass("desc")) {
 			direction = "desc";
+		} else if ($(e.target).hasClass("asc")) {
+			direction = "asc";
 		} else {
-			$(e.target).addClass(".desc");
+			$(e.target).addClass("desc");
 		}
+		if (typeof direction === "undefined") direction = "asc";
 		$.ajax("/sort/" + $(e.target).data("col") + "/" + direction, {
 			type: "GET"
 		}).then(response => {
-			// response
-			console.log("script sort response");
-			//console.log(response);
-			// lulz this works but it's terrible
-			//$("html").html(response);
-
-			// reloads the page but does not load data from route response...
-			//location.reload();
+			location.href = "/sort/" + $(e.target).data("col") + "/" + direction;
 		});
 	});
 
@@ -130,8 +111,6 @@ $(function() {
 		e.preventDefault();
 		selectRow($(e.target));
 	});
-
-	console.log("script test4");
 
 	// handle update events
 	$(document).on("click", ".submitEditBtn", e => {
@@ -153,8 +132,6 @@ $(function() {
 		});
 	});
 
-	console.log("script test5");
-
 	$(".addBtn").on("click", e => {
 		e.preventDefault();
 		const newUpdate = {};
@@ -173,6 +150,4 @@ $(function() {
 			location.reload();
 		});
 	});
-
-	console.log("script test6");
 });

@@ -31,7 +31,7 @@ const orm = {
         join status s on u.status_id = s.id
         join classification c on u.classification_id = c.id
 		join product p on u.product_id = p.id
-		order by ?? desc;`,
+		order by ?? ${data[1]};`,
 			data,
 			(err, result, fields) => {
 				if (err) throw err;

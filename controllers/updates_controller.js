@@ -28,9 +28,10 @@ const statuses = [
 
 // call selectAll function via updates model
 router.get("/", (req, res) => {
+	//console.log("controller get /");
 	updates.all(data => {
 		res.render("pages/home", {
-			page: "main",
+			page: "main/main",
 			classifications: classifications,
 			statuses: statuses,
 			products: products,
@@ -39,12 +40,14 @@ router.get("/", (req, res) => {
 	});
 });
 
+// Sort on selected column.
 router.get("/sort/:column/:direction", (req, res) => {
+	if (typeof direction == "undefined") {
+		direction = "asc";
+	}
 	updates.sort([req.params.column, req.params.direction], result => {
-		console.log("controller sort result");
-		console.log(result);
 		res.render("pages/home", {
-			page: "main",
+			page: "sort/main",
 			classifications: classifications,
 			statuses: statuses,
 			products: products,

@@ -1,0 +1,129 @@
+<div id="container">
+	TODO: Sort, export to csv, filter by product / classification, date arrived, date researched /
+	added to DB...
+	<table>
+		<thead>
+			<th>KB Article 
+				<!-- <li><img class="sortImg asc" src="../../../assets/img/asc.png" data-col="kb" /></li>
+				<li><img class="sortImg desc" src="../../../assets/img/desc.png" data-col="kb"/></li> -->
+				<div class="sort">
+					<img class="sortImg asc" src="../../../assets/img/asc.png" data-col="kb" />
+					<img class="sortImg desc" src="../../../assets/img/desc.png" data-col="kb"/></div>
+			</th>
+			<th>
+				Classification
+				<!-- <li><img class="sortImg asc" src="../../../assets/img/asc.png" data-col="classification" /></li>
+				<li><img class="sortImg desc" src="../../../assets/img/desc.png" data-col="classification"/></li> -->
+				<div class="sort">
+					<img class="sortImg asc" src="../../../assets/img/asc.png" data-col="classification" />
+					<img class="sortImg desc" src="../../../assets/img/desc.png" data-col="classification"/>
+				</div>
+				
+			</th>
+			<th>Status 
+				<!-- <li><img class="sortImg asc" src="../../../assets/img/asc.png" data-col="status" /></li>
+				<li><img class="sortImg desc" src="../../../assets/img/desc.png" data-col="status"/></li> -->
+				<div class="sort">
+					<img class="sortImg asc" src="../../../assets/img/asc.png" data-col="status" />
+					<img class="sortImg desc" src="../../../assets/img/desc.png" data-col="status"/>
+				</div>
+			</th>
+			<th>
+				Details 
+				<!-- <li><img class="sortImg asc" src="../../../assets/img/asc.png" data-col="details" /></li>
+				<li><img class="sortImg desc" src="../../../assets/img/desc.png" data-col="details"/></li> -->
+				<div class="sort">
+					<img class="sortImg asc" src="../../../assets/img/asc.png" data-col="details" />
+					<img class="sortImg desc" src="../../../assets/img/desc.png" data-col="details"/>
+				</div>
+			</th>
+			<th>
+				Product 
+				<!-- <li><img class="sortImg asc" src="../../../assets/img/asc.png" data-col="product" /></li>
+				<li><img class="sortImg desc" src="../../../assets/img/desc.png" data-col="product"/></li> -->
+				<div class="sort">
+					<img class="sortImg asc" src="../../../assets/img/asc.png" data-col="product" />
+					<img class="sortImg desc" src="../../../assets/img/desc.png" data-col="product"/>
+				</div>
+			</th>
+			<th>URL 
+				<!-- <img class="sortImg" src="../../../assets/img/sort-24.png" /> -->
+				<div class="sort">
+					<img class="sortImg asc" src="../../../assets/img/asc.png" data-col="url" />
+					<img class="sortImg desc" src="../../../assets/img/desc.png" data-col="url"/>
+				</div>
+			</th>
+		</thead>
+		<tbody>
+			<% for ( let i = 0; i < updates.length; i++ ) { %>
+			<tr id="row<%= updates[i].uid %>" class="show">
+				<td id="kb<%= updates[i].uid %>" class="updateInfo">
+					<%= updates[i].KBArticle %>
+				</td>
+				<td id="classification<%= updates[i].uid %>" class="updateInfo">
+					<%= updates[i].Classification %>
+				</td>
+				<td id="status<%= updates[i].uid %>" class="updateInfo">
+					<%= updates[i].Status %>
+				</td>
+				<td id="details<%= updates[i].uid %>" class="updateInfo">
+					<%= updates[i].Details %>
+				</td>
+				<td id="product<%= updates[i].uid %>" class="updateInfo">
+					<%= updates[i].Product %>
+				</td>
+				<td class="updateInfo">
+					<% if (updates[i].URL) { %>
+					<a href="<%= updates[i].URL %>" id="url<%= updates[i].uid %>" target="_blank"
+						>Link</a
+					>
+					<% } %>
+				</td>
+				<td>
+					<input
+						type="submit"
+						class="editBtn"
+						data-uid="<%= updates[i].uid %>"
+						value="Edit"
+					/>
+				</td>
+			</tr>
+			<% } %>
+			<form id="form_add">
+				<td><input type="text" id="addKb" name="kbArticle" /></td>
+				<td>
+					<select id="addClassification">
+						<% for ( let j = 0; j < classifications.length; j++) {%>
+						<option
+							value="<%= classifications[j].id %>"
+							data-id="<%= classifications[j].id %>"
+							><%= classifications[j].value %></option
+						>
+						<% } %>
+					</select>
+				</td>
+				<td>
+					<select id="addStatus">
+						<% for ( let j = 0; j < statuses.length; j++) {%>
+						<option value="<%= statuses[j].id %>" data-id="<%= statuses[j].id %>"
+							><%= statuses[j].value %></option
+						>
+						<% } %>
+					</select>
+				</td>
+				<td><input type="text" id="addDetails" name="details" /></td>
+				<td>
+					<select id="addProduct">
+						<% for ( let j = 0; j < products.length; j++) {%>
+						<option value="<%= products[j].id %>" data-id="<%= products[j].id %>"
+							><%= products[j].value %></option
+						>
+						<% } %>
+					</select>
+				</td>
+				<td><input type="text" id="addUrl" name="URL" /></td>
+				<td><input type="button" class="addBtn" value="Add" /></td>
+			</form>
+		</tbody>
+	</table>
+</div>

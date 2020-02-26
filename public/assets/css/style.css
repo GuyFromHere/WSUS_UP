@@ -2,13 +2,6 @@
 	font-family: "Montserrat";
 }
 
-li {
-	list-style-type: none;
-	float: left;
-	/* margin: 10px; */
-	clear: both;
-}
-
 table,
 td {
 	padding: 5px;
@@ -17,14 +10,29 @@ td {
 
 th {
 	font-size: 18pt;
-}
-
-th img {
-	height: 18px;
+	text-align: left;
+	border-left: 1px dotted black;
 }
 
 th img:active {
 	opacity: 0;
+}
+
+.sort {
+	display: flex;
+	flex-direction: column;
+	float: left;
+}
+
+li {
+	height: 20px;
+	width: 24px;
+}
+
+.asc,
+.desc {
+	margin: 1px 3px 1px 0px;
+	height: 11px;
 }
 
 .selectedRow {
