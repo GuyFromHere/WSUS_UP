@@ -4,18 +4,25 @@
 
 table,
 td {
-	padding: 5px;
 	border: 1px solid black;
 }
 
 th {
-	font-size: 18pt;
+	font-size: 14pt;
 	text-align: left;
 	border-left: 1px dotted black;
 }
 
 th img:active {
 	opacity: 0;
+}
+
+td {
+	padding: 0 3px 0 3px;
+}
+
+.editForm td input {
+	background-color: lemonchiffon;
 }
 
 .sort {
@@ -25,8 +32,8 @@ th img:active {
 }
 
 li {
-	height: 20px;
-	width: 24px;
+	height: 18px;
+	width: 22px;
 }
 
 .asc,
@@ -42,6 +49,7 @@ li {
 input {
 	padding: 5px;
 	border: none;
+	height: 100%;
 }
 
 .edit {

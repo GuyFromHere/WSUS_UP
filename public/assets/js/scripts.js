@@ -25,18 +25,19 @@ $(function() {
 
 	// takes select options list and outputs it to edit inputs
 	// marks the currently selected option as selected in the edit form
-	const getSelectOptions = function(selected, options) {
+	const getSelectOptions = function(selectedOpt, optionsArr) {
 		let outStr = "";
-		for (let i = 0; i < options.length; i++) {
-			if (options[i].value == selected) {
+		for (let i = 0; i < optionsArr.length; i++) {
+			if (optionsArr[i].value == selectedOpt) {
 				outStr +=
 					'<option value="' +
-					options[i].id +
+					optionsArr[i].id +
 					'" selected>' +
-					options[i].value +
+					optionsArr[i].value +
 					"</option>";
 			} else {
-				outStr += '<option value="' + options[i].id + '">' + options[i].value + "</option>";
+				outStr +=
+					'<option value="' + optionsArr[i].id + '">' + optionsArr[i].value + "</option>";
 			}
 		}
 		return outStr;
@@ -57,33 +58,54 @@ $(function() {
 		const uid = $(e.target).data("uid");
 		const targetRow = $("#row" + uid);
 		// get current values
-		const kb = $("#kb" + uid).text();
-		const classification = $("#classification" + uid).text();
-		const status = $("#status" + uid).text();
-		const details = $("#details" + uid).text();
-		const product = $("#product" + uid).text();
-		const url = $("#url" + uid).attr("href");
+		const kb = $("#kb" + uid)
+			.text()
+			.trim();
+		const classification = $("#classification" + uid)
+			.text()
+			.trim();
+		const status = $("#status" + uid)
+			.text()
+			.trim();
+		const details = $("#details" + uid)
+			.text()
+			.trim();
+		const product = $("#product" + uid)
+			.text()
+			.trim();
+		const publishDate = $("#publishDate" + uid)
+			.text()
+			.trim();
+		const href = $("#url" + uid).attr("href");
+		if (typeof href != "undefined") {
+			var url =
+				'<td class="selectedRow"><input id="editUrl${uid}" class="selectedRow" type="text" value="${href}"></td>';
+		} else {
+			var url =
+				'<td class="selectedRow"><input id="editUrl${uid}" class="selectedRow" type="text" value=""></td>';
+		}
 		const editEls =
-			`<form id="${uid}">
-				<td><input type="text" id="editKb${uid}" value="${kb}"></td>
-				<td>
-					<select id="editClassification${uid}">` +
+			`<form id="${uid}" class="editForm">
+				<td class="selectedRow"><input type="text" id="editKb${uid}" class="selectedRow" value="${kb}"></td>
+				<td class="selectedRow">
+					<select id="editClassification${uid}"  class="selectedRow">` +
 			getSelectOptions(classification, classifications) +
 			`</select>
 				</td>
-				<td>
-					<select id="editStatus${uid}">` +
+				<td class="selectedRow">
+					<select id="editStatus${uid}" class="selectedRow">` +
 			getSelectOptions(status, statuses) +
 			`</select>
 				</td>
-				<td><input id="editDetails${uid}" type="text" value="${details}"></td>
-				<td>
-					<select id="editProduct${uid}">` +
+				<td class="selectedRow"><input id="editDetails${uid}" class="selectedRow" type="text" value="${details}"></td>
+				<td class="selectedRow">
+					<select id="editProduct${uid}" class="selectedRow">` +
 			getSelectOptions(product, products) +
 			`</select>
 				</td>
-				<td><input id="editUrl${uid}" type="text" value="${url}"></td>
-				<td><input type="submit" id="submitEditBtn" class="submitEditBtn" data-uid="${uid}" value="Send" /></td>
+				<td class="selectedRow"><input id="editPublishDate${uid}" class="selectedRow" type="text" value="${publishDate}"></td>
+				${url}
+				<td class="selectedRow"><input type="submit" id="submitEditBtn" class="submitEditBtn" data-uid="${uid}" value="Send" /></td>
 			</form>`;
 		targetRow.html(editEls);
 	});
@@ -107,10 +129,10 @@ $(function() {
 		});
 	});
 
-	$("td").on("click", e => {
+	/* $("td").on("click", e => {
 		e.preventDefault();
 		selectRow($(e.target));
-	});
+	}); */
 
 	// handle update events
 	$(document).on("click", ".submitEditBtn", e => {
@@ -122,6 +144,7 @@ $(function() {
 		editUpdate.status = $("#editStatus" + uid).val();
 		editUpdate.classification = $("#editClassification" + uid).val();
 		editUpdate.product = $("#editProduct" + uid).val();
+		editUpdate.publishDate = $("#editPublishDate" + uid).val();
 		editUpdate.url = $("#editUrl" + uid).val();
 		editUpdate.uid = uid;
 		$.ajax("/edit", {
@@ -140,9 +163,8 @@ $(function() {
 		newUpdate.status = $("#addStatus").val();
 		newUpdate.details = $("#addDetails").val();
 		newUpdate.product = $("#addProduct").val();
+		newUpdate.publishDate = $("#addPublishDate").val();
 		newUpdate.url = $("#addUrl").val();
-		console.log("scripts add");
-		console.log(newUpdate);
 		$.ajax("/add", {
 			type: "POST",
 			data: newUpdate

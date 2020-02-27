@@ -30,13 +30,7 @@ const statuses = [
 router.get("/", (req, res) => {
 	//console.log("controller get /");
 	updates.all(data => {
-		res.render("pages/home", {
-			page: "main/main",
-			classifications: classifications,
-			statuses: statuses,
-			products: products,
-			updates: data
-		});
+		res.redirect("/sort/kb/asc");
 	});
 });
 
@@ -47,7 +41,7 @@ router.get("/sort/:column/:direction", (req, res) => {
 	}
 	updates.sort([req.params.column, req.params.direction], result => {
 		res.render("pages/home", {
-			page: "sort/main",
+			page: "main/main",
 			classifications: classifications,
 			statuses: statuses,
 			products: products,
@@ -65,6 +59,7 @@ router.post("/edit", (req, res) => {
 			req.body.status,
 			req.body.details,
 			req.body.product,
+			req.body.productDate,
 			req.body.url,
 			req.body.uid
 		],
@@ -83,6 +78,7 @@ router.post("/add", (req, res) => {
 			req.body.status,
 			req.body.details,
 			req.body.product,
+			req.body.publishDate,
 			req.body.url
 		],
 		result => {

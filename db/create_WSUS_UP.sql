@@ -25,6 +25,7 @@ create table wupdate (
     kb INT not null,
     url VARCHAR(200) default '',
     details VARCHAR(250) default '',
+    publishDate DATE,
     status_id int not null,
     classification_id int not null,
     product_id int not null,
