@@ -1,0 +1,38 @@
+<form id="form_add">
+    <td><input type="text" id="addKb" name="kbArticle" /></td>
+    <td>
+        <select id="addClassification">
+            <% for ( let j = 0; j < classifications.length; j++) {%>
+            <option
+                value="<%= classifications[j].id %>"
+                data-id="<%= classifications[j].id %>"
+                ><%= classifications[j].value %></option
+            >
+            <% } %>
+        </select>
+    </td>
+    <td>
+        <select id="addStatus">
+            <% for ( let j = 0; j < statuses.length; j++) {%>
+            <option value="<%= statuses[j].id %>" data-id="<%= statuses[j].id %>"
+                ><%= statuses[j].value %></option
+            >
+            <% } %>
+        </select>
+    </td>
+    <td><input type="text" id="addDetails" name="details" /></td>
+    <td>
+        <select id="addProduct">
+            <% for ( let j = 0; j < products.length; j++) {%>
+            <option value="<%= products[j].id %>" data-id="<%= products[j].id %>"
+                ><%= products[j].value %></option
+            >
+            <% } %>
+        </select>
+    </td>
+    <td>
+        <input type="text" id="addPublishDate" name="publishDate" />
+    </td>
+    <td><input type="text" id="addUrl" name="URL" /></td>
+    <td><input type="button" class="addBtn" value="Add" /></td>
+</form>

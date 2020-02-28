@@ -44,12 +44,12 @@ $(function() {
 	};
 
 	// user clicks td element, get sibling td elements and change their class
-	const selectRow = function(target) {
+	/* 	const selectRow = function(target) {
 		const siblings = target.siblings("td");
 		$(".selectedRow").removeClass("selectedRow");
 		target.addClass("selectedRow");
 		siblings.addClass("selectedRow");
-	};
+	}; */
 
 	// toggle .edit and .show
 	$(".editBtn").on("click", e => {
@@ -78,11 +78,9 @@ $(function() {
 			.trim();
 		const href = $("#url" + uid).attr("href");
 		if (typeof href != "undefined") {
-			var url =
-				'<td class="selectedRow"><input id="editUrl${uid}" class="selectedRow" type="text" value="${href}"></td>';
+			var url = `<td class="selectedRow"><input id="editUrl${uid}" class="selectedRow" type="text" value="${href}"></td>`;
 		} else {
-			var url =
-				'<td class="selectedRow"><input id="editUrl${uid}" class="selectedRow" type="text" value=""></td>';
+			var url = `<td class="selectedRow"><input id="editUrl${uid}" class="selectedRow" type="text" value=""></td>`;
 		}
 		const editEls =
 			`<form id="${uid}" class="editForm">
@@ -124,7 +122,7 @@ $(function() {
 		if (typeof direction === "undefined") direction = "asc";
 		$.ajax("/sort/" + $(e.target).data("col") + "/" + direction, {
 			type: "GET"
-		}).then(response => {
+		}).then(() => {
 			location.href = "/sort/" + $(e.target).data("col") + "/" + direction;
 		});
 	});
@@ -155,6 +153,7 @@ $(function() {
 		});
 	});
 
+	// Get new update info and post to /add
 	$(".addBtn").on("click", e => {
 		e.preventDefault();
 		const newUpdate = {};

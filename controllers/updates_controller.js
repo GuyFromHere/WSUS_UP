@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const updates = require("../models/updates");
+const moment = require("moment");
 
 const classifications = [
 	{
@@ -28,7 +29,6 @@ const statuses = [
 
 // call selectAll function via updates model
 router.get("/", (req, res) => {
-	//console.log("controller get /");
 	updates.all(data => {
 		res.redirect("/sort/kb/asc");
 	});
@@ -40,12 +40,34 @@ router.get("/sort/:column/:direction", (req, res) => {
 		direction = "asc";
 	}
 	updates.sort([req.params.column, req.params.direction], result => {
+		const parsedUpdates = result.map(item => {
+			const newObj = {
+				uid: item.uid,
+				KBArticle: item.KBArticle,
+				Classification: item.Classification,
+				Status: item.Status,
+				Details: item.Details,
+				Product: item.Product,
+				URL: item.URL
+			};
+			if (item.PublishDate != "0000-00-00") {
+				newObj.PublishDate = moment(item.PublishDate).format("MM/DD/YYYY");
+			} else {
+				newObj.PublishDate = "";
+			}
+			if (item.URL) {
+				newObj.URL = item.URL;
+			} else {
+				newObj.URL = "";
+			}
+			return newObj;
+		});
 		res.render("pages/home", {
 			page: "main/main",
 			classifications: classifications,
 			statuses: statuses,
 			products: products,
-			updates: result
+			updates: parsedUpdates
 		});
 	});
 });
@@ -59,7 +81,7 @@ router.post("/edit", (req, res) => {
 			req.body.status,
 			req.body.details,
 			req.body.product,
-			req.body.productDate,
+			req.body.publishDate,
 			req.body.url,
 			req.body.uid
 		],
