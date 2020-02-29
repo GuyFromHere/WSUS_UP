@@ -43,13 +43,37 @@ $(function() {
 		return outStr;
 	};
 
+	// get values of cells in the selected row
+	const getRowValues = rowId => {
+		// get current values
+		const kb = $("#kb" + rowId)
+			.text()
+			.trim();
+		const classification = $("#classification" + rowId)
+			.text()
+			.trim();
+		const status = $("#status" + rowId)
+			.text()
+			.trim();
+		const details = $("#details" + rowId)
+			.text()
+			.trim();
+		const product = $("#product" + rowId)
+			.text()
+			.trim();
+		const publishDate = $("#publishDate" + rowId)
+			.text()
+			.trim();
+		const href = $("#url" + rowId).attr("href");
+	};
+
 	// user clicks td element, get sibling td elements and change their class
-	/* 	const selectRow = function(target) {
+	const selectRow = function(target) {
 		const siblings = target.siblings("td");
 		$(".selectedRow").removeClass("selectedRow");
 		target.addClass("selectedRow");
 		siblings.addClass("selectedRow");
-	}; */
+	};
 
 	// toggle .edit and .show
 	$(".editBtn").on("click", e => {
@@ -57,6 +81,9 @@ $(function() {
 		// get row to update
 		const uid = $(e.target).data("uid");
 		const targetRow = $("#row" + uid);
+		// get any other .selectedRow and escape it
+		console.log("scripts editBtn click -> exitEditMode");
+		//exitEditMode();
 		// get current values
 		const kb = $("#kb" + uid)
 			.text()
@@ -82,6 +109,7 @@ $(function() {
 		} else {
 			var url = `<td class="selectedRow"><input id="editUrl${uid}" class="selectedRow" type="text" value=""></td>`;
 		}
+		// insert form in place of the target row
 		const editEls =
 			`<form id="${uid}" class="editForm">
 				<td class="selectedRow"><input type="text" id="editKb${uid}" class="selectedRow" value="${kb}"></td>
@@ -103,7 +131,7 @@ $(function() {
 				</td>
 				<td class="selectedRow"><input id="editPublishDate${uid}" class="selectedRow" type="text" value="${publishDate}"></td>
 				${url}
-				<td class="selectedRow"><input type="submit" id="submitEditBtn" class="submitEditBtn" data-uid="${uid}" value="Send" /></td>
+				<td class="selectedRow"><input type="submit" id="submitEditBtn" data-uid="${uid}" value="Send" /></td>
 			</form>`;
 		targetRow.html(editEls);
 	});
@@ -135,7 +163,54 @@ $(function() {
 	// handle update events
 	$(document).on("click", ".submitEditBtn", e => {
 		e.preventDefault();
-		const uid = $(e.target).data("uid");
+		updateRow($(e.target).data("uid"));
+	});
+
+	exitEditMode = uid => {
+		// find #submitEditBtn and get row ID
+		//const uid = $("#submitEditBtn").data("uid");
+		const targetRow = $(`#row${uid}`);
+		console.log("exitEditMode uid = ");
+		console.log(uid);
+		// get values of items in the selected row so we can store them in normal TDs
+		// get current values in cells
+		const kb = $(`#editKb${uid}`)
+			.val()
+			.trim();
+		console.log("kb = ");
+		console.log(kb);
+		const classification = $(`#editClassification${uid} option:selected`).text();
+		const status = $(`#editStatus${uid} option:selected`).text();
+		const details = $(`#editDetails${uid}`)
+			.text()
+			.trim();
+		const product = $(`#editProduct${uid} option:selected`).text();
+		const publishDate = $(`#editPublishDate${uid}`)
+			.val()
+			.trim();
+		const href = $(`#editUrl${uid}`)
+			.val()
+			.trim();
+		if (typeof href != "undefined") {
+			var url = `<td class="updateInfo"><a href=${href} id="url${uid}" target="_blank">Link</a></td>`;
+		} else {
+			var url = `<td class="updateInfo"></td>`;
+		}
+		// insert form in place of the target row
+		const showEls = `<td id="kb${uid}" class="updateInfo">${kb}</td>
+			<td id="classification${uid}" class="updateInfo">${classification}</td>
+			<td id="status${uid}" class="updateInfo">${status}</td>
+			<td id="details${uid}" class="updateInfo">${details}</td>
+			<td id="product${uid}" class="updateInfo">${product}</td>
+			<td id="publishDate${uid} class="updateInfo">${publishDate}</td>
+				${url}
+			<td><input type="submit" id="editBtn" data-uid="${uid}" value="Edit" /></td>`;
+		console.log("scripts exitEditMode");
+		console.log(showEls);
+		targetRow.html(showEls);
+	};
+
+	updateRow = uid => {
 		const editUpdate = {};
 		editUpdate.kb = $("#editKb" + uid).val();
 		editUpdate.details = $("#editDetails" + uid).val();
@@ -151,6 +226,18 @@ $(function() {
 		}).then(() => {
 			location.reload();
 		});
+	};
+
+	// handle enter and esc keypresses when editing a row
+	$(document).on("keydown", ".selectedRow", e => {
+		const uid = $("#submitEditBtn").data("uid");
+		if (e.code == "Enter") {
+			updateRow(uid);
+		}
+		if (e.code == "Escape") {
+			console.log("Call keypress handler escape -> exitEditMode");
+			exitEditMode(uid);
+		}
 	});
 
 	// Get new update info and post to /add
