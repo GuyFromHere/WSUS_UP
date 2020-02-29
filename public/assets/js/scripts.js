@@ -258,4 +258,16 @@ $(function() {
 			location.reload();
 		});
 	});
+
+	// filter for selected status.
+	// obvs need to account for the current sort values....
+	$("#navStatusSelect").on("change", e => {
+		e.preventDefault();
+		const selectedStatus = $(e.target).val();
+		$.ajax("/sort/kb/asc/" + selectedStatus, {
+			type: "GET"
+		}).then(() => {
+			location.href = "/sort/kb/asc/" + selectedStatus;
+		});
+	});
 });

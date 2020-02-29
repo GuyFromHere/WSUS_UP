@@ -72,6 +72,10 @@ router.get("/sort/:column/:direction", (req, res) => {
 	});
 });
 
+router.get("/sort/:column/:direction/:status", (req, res) => {
+	// get only updates with selected status
+});
+
 router.post("/edit", (req, res) => {
 	// update an update
 	updates.edit(
