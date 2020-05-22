@@ -41,15 +41,16 @@ insert into classification (classification)
 values ("Security"),("Critical");
 
 insert into product (product)
-values ("Server 2019"),("Server 2016"),("Server 2012"),("Windows 10 1803"),("Windows 10 1903"),("Office 2010");
+values ("Server 2019"),("Server 2016"),("Server 2012"),("Server 2008"),("Windows 10 1607"),("Windows 10 1803"),("Windows 10 1903"),("Windows 7"),("Office 2010"),("Office 2013");
 
 insert into status (status)
 values ("Unapproved"),("Approved"),("Declined");
 
-insert into wupdate (kb, url, details, status_id, classification_id, product_id)
+insert into wupdate (kb, url, details, publishDate, status_id, classification_id, product_id)
 values
 (2850016, 
-"https://support.microsoft.com/en-us/help/2850016/ms13-106-description-of-the-security-update-for-office-2010-december-1","Add first data to table",1,1,6);
+"https://support.microsoft.com/en-us/help/2850016/ms13-106-description-of-the-security-update-for-office-2010-december-1",
+"Add first data to table","12/10/2010",1,1,6);
 
 
 -- test query
@@ -59,3 +60,7 @@ join status s on u.status_id = s.id
 join classification c on u.classification_id = c.id;
 
 select * from classification;
+
+insert into product (product)
+values ("Windows 7"), ("Server 2008");
+select * from product;

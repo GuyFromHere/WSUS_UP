@@ -53,44 +53,51 @@
 			</th>
 		</thead>
 		<tbody>
-			<% for ( let i = 0; i < updates.length; i++ ) { %>
-			<tr id="row<%= updates[i].uid %>" class="show">
-				<td id="kb<%= updates[i].uid %>" class="updateInfo">
-					<%= updates[i].KBArticle %>
-				</td>
-				<td id="classification<%= updates[i].uid %>" class="updateInfo">
-					<%= updates[i].Classification %>
-				</td>
-				<td id="status<%= updates[i].uid %>" class="updateInfo">
-					<%= updates[i].Status %>
-				</td>
-				<td id="details<%= updates[i].uid %>" class="updateInfo">
-					<%= updates[i].Details %>
-				</td>
-				<td id="product<%= updates[i].uid %>" class="updateInfo">
-					<%= updates[i].Product %>
-				</td>
-				<td id="publishDate<%= updates[i].uid %>" class="updateInfo">
-					<%= updates[i].PublishDate %>
-				</td>
-				<td class="updateInfo">
-					<% if (updates[i].URL) { %>
-					<a href="<%= updates[i].URL %>" id="url<%= updates[i].uid %>" target="_blank"
-						>Link</a
-					>
-					<% } %>
-				</td>
-				<td>
-					<input
-						type="submit"
-						class="editBtn"
-						data-uid="<%= updates[i].uid %>"
-						value="Edit<%= updates[i].uid %>"
-					/>
-				</td>
-			</tr>
-			<% } %>
 			<%- include('./addUpdates') %>
+			<% for ( let i = 0; i < updates.length; i++ ) { %>
+				<% if ( updates[i].Status == "Approved" ) { %>
+					<tr id="row<%= updates[i].uid %>" class="show approved">
+				<% } else if ( updates[i].Status == "Unapproved" ) { %>
+					<tr id="row<%= updates[i].uid %>" class="show unapproved">
+				<% } else { %>
+					<tr id="row<%= updates[i].uid %>" class="show declined">
+				<% } %>
+					<td id="kb<%= updates[i].uid %>" class="updateInfo">
+						<%= updates[i].KBArticle %>
+					</td>
+					<td id="classification<%= updates[i].uid %>" class="updateInfo">
+						<%= updates[i].Classification %>
+					</td>
+					<td id="status<%= updates[i].uid %>" class="updateInfo">
+						<%= updates[i].Status %>
+					</td>
+					<td id="details<%= updates[i].uid %>" class="updateInfo">
+						<%= updates[i].Details %>
+					</td>
+					<td id="product<%= updates[i].uid %>" class="updateInfo">
+						<%= updates[i].Product %>
+					</td>
+					<td id="publishDate<%= updates[i].uid %>" class="updateInfo">
+						<%= updates[i].PublishDate %>
+					</td>
+					<td class="updateInfo">
+						<% if (updates[i].URL) { %>
+						<a href="<%= updates[i].URL %>" id="url<%= updates[i].uid %>" target="_blank"
+							>Link</a
+						>
+						<% } %>
+					</td>
+					<td>
+						<input
+							type="submit"
+							class="editBtn"
+							data-uid="<%= updates[i].uid %>"
+							value="Edit"
+						/>
+					</td>
+				</tr>
+			<% } %>
+			
 		</tbody>
 	</table>
 </div>

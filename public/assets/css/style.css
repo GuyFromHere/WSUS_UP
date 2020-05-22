@@ -80,6 +80,18 @@ td input {
 	background-color: gold;
 }
 
+.approved {
+	background-color: rgb(192, 225, 238);
+}
+
+.declined {
+	background-color: wheat;
+}
+
+.unapproved {
+	background-color: palegoldenrod;
+}
+
 /* .submitEditBtn:active {
 	background-color: gold;
 } */
