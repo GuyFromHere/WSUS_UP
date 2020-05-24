@@ -3,35 +3,37 @@ const router = express.Router();
 const updates = require("../models/updates");
 const moment = require("moment");
 
-const classifications = [
-	{
-		id: 1,
-		value: "Security",
-	},
-	{
-		id: 2,
-		value: "Critical",
-	},
-];
-const products = [
-	{ id: 1, value: "Server 2019" },
-	{ id: 2, value: "Server 2016" },
-	{ id: 3, value: "Server 2012" },
-	{ id: 4, value: "Windows 10 1803" },
-	{ id: 5, value: "Windows 10 1903" },
-	{ id: 6, value: "Office 2010" },
-	{ id: 7, value: "Office 2013" },
-	{ id: 8, value: "Windows 7" },
-	{ id: 9, value: "Server 2008" },
-	{ id: 10, value: "Windows 10 1607" },
-	{ id: 11, value: "Windows 10 1709" },
-];
+var products;
 
-const statuses = [
-	{ id: 1, value: "Unapproved" },
-	{ id: 2, value: "Approved" },
-	{ id: 3, value: "Declined" },
-];
+updates.getColumn(`product`, result => {
+	products = result.map(item => {
+		const newObj = {
+			id: item.id,
+			value: item.product 
+		}
+		return newObj;
+	})
+})
+
+updates.getColumn(`status`, result => {
+	statuses = result.map(item => {
+		const newObj = {
+			id: item.id,
+			value: item.status 
+		}
+		return newObj;
+	})
+})
+
+updates.getColumn(`classification`, result => {
+	classifications = result.map(item => {
+		const newObj = {
+			id: item.id,
+			value: item.classification 
+		}
+		return newObj;
+	})
+})
 
 // call selectAll function via updates model
 router.get("/", (req, res) => {

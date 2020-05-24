@@ -1,15 +1,28 @@
 <h1><a href="/">WSUS Tracker</a></h1>
 <div class="navList">
     <select id="filterSelect-Status" class="filterSelect">
-        <option id="0" value="">Filter Status:</option>
-        <option id="1" value="Unapproved">Unapproved</option>
-        <option id="2" value="Approved">Approved</option>
-        <option id="3" value="Declined">Declined</option>
+        <option value="">Filter Status:</option>
+		<% for ( let i = 0; i < statuses.length; i++ ) { %>
+			<option id="<%= statuses[i].id %>" value="<%= statuses[i].value %>">
+				<%= statuses[i].value %>
+			</option>
+		<% } %>
     </select>
     <select id="filterSelect-Classification" class="filterSelect">
         <option id="0" value="">Filter Classification:</option>
-        <option id="1" value="Security">Security</option>
-        <option id="2" value="Critical">Critical</option>
+		<% for ( let i = 0; i < classifications.length; i++ ) { %>
+			<option id="<%= classifications[i].id %>" value="<%= classifications[i].value %>">
+				<%= classifications[i].value %>
+			</option>
+		<% } %>
+    </select>
+    <select id="filterSelect-Product" class="filterSelect">
+        <option id="0" value="">Filter Product:</option>
+		<% for ( let i = 0; i < products.length; i++ ) { %>
+			<option id="<%= products[i].id %>" value="<%= products[i].value %>">
+				<%= products[i].value %>
+			</option>
+		<% } %>
     </select>
     <input type="text" id="search" placeholder="Enter KB number..."><button name="search">Search</button>
 </div>

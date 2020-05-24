@@ -57,6 +57,12 @@ const orm = {
 			cb(result);
 		});
 	},
+	getColumn: (data, cb) => {
+		connection.query(`select * from ${data};`, (err, result) => {
+			if (err) throw err;
+			cb(result);
+		})
+	}
 };
 
 module.exports = orm;

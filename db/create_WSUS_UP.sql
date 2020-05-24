@@ -26,6 +26,7 @@ create table wupdate (
     url VARCHAR(200) default '',
     details VARCHAR(250) default '',
     publishDate DATE,
+    researchDate TIMESTAMP default current_timestamp,
     status_id int not null,
     classification_id int not null,
     product_id int not null,
@@ -38,13 +39,15 @@ create table wupdate (
 
 -- seed tables
 insert into classification (classification)
-values ("Security"),("Critical");
+values ("Security"),("Critical"),("Updates"),("Upgrades");
 
 insert into product (product)
-values ("Server 2019"),("Server 2016"),("Server 2012"),("Server 2008"),("Windows 10 1607"),("Windows 10 1803"),("Windows 10 1903"),("Windows 7"),("Office 2010"),("Office 2013");
+values ("Server 2019"),("Server 2016"),("Server 2012"),("Server 2012 R2"),("Server 2008"),("Server 2008 R2"),
+	("Windows 10 1607"),("Windows 10 1709"),("Windows 10 1803"),("Windows 10 1903"),("Windows 7"),
+    ("Office 2010"),("Office 2013");
 
 insert into status (status)
-values ("Unapproved"),("Approved"),("Declined");
+values ("Unapproved"),("Approved"),("Declined"),("Superseded");
 
 insert into wupdate (kb, url, details, publishDate, status_id, classification_id, product_id)
 values
@@ -59,17 +62,10 @@ from wupdate u
 join status s on u.status_id = s.id
 join classification c on u.classification_id = c.id;
 
-select * from classification;
-
-insert into product (product)
-values ("Windows 7"), ("Server 2008");
-select * from product;
-
-select u.id as uid, u.kb as KBArticle, u.details as Details, s.status as Status,
-c.classification as Classification, u.publishDate as PublishDate, p.product as Product,
-u.url as URL
-from wupdate u
-join status s on u.status_id = s.id
-join classification c on u.classification_id = c.id
-join product p on u.product_id = p.id
-WHERE status.s == 'Unapproved';
+select u.id as uid, u.kb as KBArticle, u.details as Details, s.status as Status, c.classification as Classification, u.publishDate as PublishDate, p.product as Product, u.url as URL
+        from wupdate u
+        join status s on u.status_id = s.id
+        join classification c on u.classification_id = c.id
+        join product p on u.product_id = p.id
+        where status = "declined"
+order by KB desc;

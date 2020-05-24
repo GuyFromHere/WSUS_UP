@@ -15,6 +15,11 @@ const updates = {
 		orm.addUpdate(data, result => {
 			cb(result);
 		});
+	},
+	getColumn: (data, cb) => {
+		orm.getColumn(data, result => {
+			cb(result);
+		})
 	}
 };
 
