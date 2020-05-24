@@ -3,6 +3,11 @@
 	font-family: "Montserrat";
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
+
 table,
 td {
 	border: 1px solid black;
