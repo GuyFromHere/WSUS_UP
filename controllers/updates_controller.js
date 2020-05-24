@@ -35,13 +35,44 @@ const statuses = [
 
 // call selectAll function via updates model
 router.get("/", (req, res) => {
-	updates.all((data) => {
-		res.redirect("/sort/kb/asc");
-	});
+	// pass req.query to orm selectAll function
+	// if empty, returns all columns unfiltered
+	updates.all(req.query, result => {
+		const parsedUpdates = result.map((item) => {
+			const newObj = {
+				uid: item.uid,
+				KBArticle: item.KBArticle,
+				Classification: item.Classification,
+				Status: item.Status,
+				Details: item.Details,
+				Product: item.Product,
+				URL: item.URL,
+			};
+			if (item.PublishDate != "0000-00-00") {
+				newObj.PublishDate = moment(item.PublishDate).format("MM/DD/YYYY");
+			} else {
+				newObj.PublishDate = "";
+			}
+			if (item.URL) {
+				newObj.URL = item.URL;
+			} else {
+				newObj.URL = "";
+			}
+			return newObj;
+		});
+		res.render("pages/home", {
+			page: "main/main",
+			classifications: classifications,
+			statuses: statuses,
+			products: products,
+			updates: parsedUpdates,
+		});
+	})
 });
 
 // Sort on selected column.
 router.get("/sort/:column/:direction", (req, res) => {
+	console.log('updates controller sort');
 	if (typeof direction == "undefined") {
 		direction = "asc";
 	}
@@ -79,45 +110,45 @@ router.get("/sort/:column/:direction", (req, res) => {
 });
 
 // Filter for the desired status
-router.get("/sort/:column/:direction/:status", (req, res) => {
+router.get("/filter/:status", (req, res) => {
 	// get only updates with selected status
-	console.log("updates_controller get sort/:col/:dir/:status");
+	console.log("updates_controller get filter/:status");
 	console.log(req.params);
-	//updates.filter([req.params], (result) => {
-	//
-	console.log("updates_controller filter result");
-	console.log(result);
-	/* 
-		const parsedUpdates = result.map((item) => {
-			const newObj = {
-				uid: item.uid,
-				KBArticle: item.KBArticle,
-				Classification: item.Classification,
-				Status: item.Status,
-				Details: item.Details,
-				Product: item.Product,
-				URL: item.URL,
-			};
-			if (item.PublishDate != "0000-00-00") {
-				newObj.PublishDate = moment(item.PublishDate).format("MM/DD/YYYY");
-			} else {
-				newObj.PublishDate = "";
-			}
-			if (item.URL) {
-				newObj.URL = item.URL;
-			} else {
-				newObj.URL = "";
-			}
-			return newObj;
-		});
-		res.render("pages/home", {
-			page: "main/main",
-			classifications: classifications,
-			statuses: statuses,
-			products: products,
-			updates: parsedUpdates,
-		}); */
-	//});
+	// pass filter values in params...?
+	updates.all(req.params, result => {
+			console.log('updates controller filter result');
+			console.log(result);
+			const parsedUpdates = result.map((item) => {
+				const newObj = {
+					uid: item.uid,
+					KBArticle: item.KBArticle,
+					Classification: item.Classification,
+					Status: item.Status,
+					Details: item.Details,
+					Product: item.Product,
+					URL: item.URL,
+				};
+				if (item.PublishDate != "0000-00-00") {
+					newObj.PublishDate = moment(item.PublishDate).format("MM/DD/YYYY");
+				} else {
+					newObj.PublishDate = "";
+				}
+				if (item.URL) {
+					newObj.URL = item.URL;
+				} else {
+					newObj.URL = "";
+				}
+				return newObj;
+			});
+			res.render("pages/home", {
+				page: "main/main",
+				classifications: classifications,
+				statuses: statuses,
+				products: products,
+				updates: parsedUpdates,
+			});
+		}
+	);
 });
 
 router.post("/edit", (req, res) => {

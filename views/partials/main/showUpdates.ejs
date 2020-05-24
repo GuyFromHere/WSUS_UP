@@ -55,13 +55,12 @@
 		<tbody>
 			<%- include('./addUpdates') %>
 			<% for ( let i = 0; i < updates.length; i++ ) { %>
-				<% if ( updates[i].Status == "Approved" ) { %>
-					<tr id="row<%= updates[i].uid %>" class="show approved">
-				<% } else if ( updates[i].Status == "Unapproved" ) { %>
-					<tr id="row<%= updates[i].uid %>" class="show unapproved">
-				<% } else { %>
-					<tr id="row<%= updates[i].uid %>" class="show declined">
-				<% } %>
+				<tr id="row<%= updates[i].uid %>" 
+					class="show <%= updates[i].Status.toLowerCase() %>" 
+					data-classification="<%= updates[i].Classification.toLowerCase() %>"
+					data-status="<%= updates[i].Status.toLowerCase() %>"
+					data-product="<%= updates[i].Product.toLowerCase().replace(' ','') %>"
+					data-publishDate="<%= updates[i].PublishDate %>">
 					<td id="kb<%= updates[i].uid %>" class="updateInfo">
 						<%= updates[i].KBArticle %>
 					</td>

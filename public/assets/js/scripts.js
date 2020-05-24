@@ -169,21 +169,15 @@ $(function () {
 	// handle update events
 	$(document).on("click", ".submitEditBtn", (e) => {
 		e.preventDefault();
-		console.log("script on click edit");
 		updateRow($(e.target).data("uid"));
 	});
 
 	exitEditMode = (uid) => {
 		// find #submitEditBtn and get row ID
-		//const uid = $("#submitEditBtn").data("uid");
 		const targetRow = $(`#row${uid}`);
-		console.log("exitEditMode uid = ");
-		console.log(uid);
 		// get values of items in the selected row so we can store them in normal TDs
 		// get current values in cells
 		const kb = $(`#editKb${uid}`).val().trim();
-		console.log("kb = ");
-		console.log(kb);
 		const classification = $(`#editClassification${uid} option:selected`).text();
 		const status = $(`#editStatus${uid} option:selected`).text();
 		const details = $(`#editDetails${uid}`).text().trim();
@@ -263,22 +257,24 @@ $(function () {
 		});
 	});
 
-	// filter for selected status.
-	// obvs need to account for the current sort values....
-	$("#navStatusSelect").on("change", (e) => {
+	// check  and hide elements that don't contain the desired value
+	$(".filterSelect").on("change", (e) => {
 		e.preventDefault();
-		const selectedStatus = $(e.target).val();
-		// get current url so we can pass sort values to route
-		const pathParams = window.location.pathname;
-		const path = pathParams.split("/");
-		console.log("scripts navstatusselect selected:");
-		console.log(selectedStatus);
-		console.log("scrips navstatus select path params");
-		console.log(pathParams + "/" + selectedStatus);
-		$.ajax(pathParams + selectedStatus, {
+		// value to filter by
+		const filterValue = $(e.target).val().toLowerCase();
+		const filterColumn = $(e.target).attr('id').split('-')[1].toLowerCase();
+		const updatesReq = {
+			filterCol: filterColumn,
+			filterVal: filterValue
+		}
+		$.ajax("/", {
 			type: "GET",
-		}).then(() => {
-			location.href = pathParams + selectedStatus;
+			data: updatesReq
+		}).then(result => {
+			console.log('filterSelect result');
+			console.log(result);
+			location.href = "/" + filterCol;
 		});
+
 	});
 });

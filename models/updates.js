@@ -1,24 +1,34 @@
 const orm = require("../config/orm");
 
 const updates = {
-	all: cb => {
-		orm.selectAll(res => {
-			cb(res);
-		});
+	all: (params, cb) => {
+		orm.getUpdates(params, result => {
+			/* console.log('model getUpdates result:');
+			console.log(result); */
+			cb(result);
+		})
+		/* orm.selectAll(result => {
+			cb(result);
+		}); */
 	},
 	sort: (data, cb) => {
-		orm.sort(data, res => {
-			cb(res);
+		orm.sort(data, result => {
+			cb(result);
 		});
 	},
+	filter: (data, cb) => {
+		orm.filter(data, result => {
+			cb(result);
+		})
+	},
 	edit: (data, cb) => {
-		orm.updateOne(data, res => {
-			cb(res);
+		orm.updateOne(data, result => {
+			cb(result);
 		});
 	},
 	add: (data, cb) => {
-		orm.addUpdate(data, res => {
-			cb(res);
+		orm.addUpdate(data, result => {
+			cb(result);
 		});
 	}
 };
