@@ -1,33 +1,4 @@
 $(function () {
-	const classifications = [
-		{
-			id: 1,
-			value: "Security",
-		},
-		{
-			id: 2,
-			value: "Critical",
-		},
-	];
-
-	const products = [
-		{ id: 1, value: "Server 2019" },
-		{ id: 2, value: "Server 2016" },
-		{ id: 3, value: "Server 2012" },
-		{ id: 4, value: "Windows 10 1803" },
-		{ id: 5, value: "Windows 10 1903" },
-		{ id: 6, value: "Office 2010" },
-		{ id: 7, value: "Office 2013" },
-		{ id: 8, value: "Windows 7" },
-		{ id: 9, value: "Server 2008" },
-		{ id: 10, value: "Windows 10 1607" },
-		{ id: 11, value: "Windows 10 1709" },
-	];
-	const statuses = [
-		{ id: 1, value: "Unapproved" },
-		{ id: 2, value: "Approved" },
-		{ id: 3, value: "Declined" },
-	];
 
 	// Check uri for filter or sort values so we can 
 	// include them in a GET request
@@ -98,7 +69,6 @@ $(function () {
 		
 		// set default sort direction
 		let direction;
-		let sortObj;
 		let uriString = "?";
 		// get filter parameter if set
 		const filterObj = parseUriParams("filter");
@@ -135,6 +105,7 @@ $(function () {
 	// check  and hide elements that don't contain the desired value
 	$(".filterSelect").on("change", (e) => {
 		e.preventDefault();
+		let uriString = "?";
 		// value to filter by
 		const filterValue = $(e.target).val().toLowerCase();
 		const filterColumn = $(e.target).attr('id').split('-')[1].toLowerCase();
@@ -142,11 +113,20 @@ $(function () {
 			filterCol: filterColumn,
 			filterVal: filterValue
 		}
+		uriString += "filterCol="+queryObj.filterCol+"&filterVal="+queryObj.filterVal;
+		// get sort parameter if set
+		const sortObj = parseUriParams("sort");
+		if ( sortObj ) {
+			queryObj.sortCol = sortObj.sortCol;
+			queryObj.sortVal = sortObj.sortVal;
+			uriString += "&sortCol=" + queryObj.sortCol + "&sortVal=" + queryObj.sortVal;
+		}
 		$.ajax("/", {
 			type: "GET",
 			data: queryObj
 		}).then(result => {
-			location.href = "?filterCol="+filterColumn+"&filterVal="+filterValue;
+			//location.href = "filterCol="+filterColumn+"&filterVal="+filterValue;
+			location.href = uriString;
 		});
 
 	});
