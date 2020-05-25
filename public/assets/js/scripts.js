@@ -125,9 +125,28 @@ $(function () {
 			type: "GET",
 			data: queryObj
 		}).then(result => {
-			//location.href = "filterCol="+filterColumn+"&filterVal="+filterValue;
 			location.href = uriString;
 		});
 
 	});
+
+	$('#searchBtn').on("click", e => {
+		let uriString = "?";
+		const queryObj = {
+			filterCol: "u.kb",
+			filterVal: $('#search').val() + '%'
+		}
+		console.log(queryObj);
+		$.ajax("/", {
+			type: "GET",
+			data: queryObj
+		}).then(result => {
+			console.log('search result = ');
+			console.log(result);
+			uriString += "filterCol=u.kb&filterVal="+$("#search").val();
+			location.href = uriString;
+			
+		})
+
+	})
 });

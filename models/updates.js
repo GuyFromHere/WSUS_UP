@@ -6,6 +6,11 @@ const updates = {
 			cb(result);
 		})
 	},
+	search: (params, cb) => {
+		orm.searchUpdates(params, result => {
+			cb(result);
+		})
+	},
 	edit: (data, cb) => {
 		orm.updateOne(data, result => {
 			cb(result);

@@ -27,7 +27,8 @@ const orm = {
 
 		// where ${filterCol} = ${filterVal} 
 		if (typeof queryObj.filterCol != "undefined" ) {
-			filterStatement = `where ${queryObj.filterCol} = "${queryObj.filterVal}"` + filterStatement;
+			//filterStatement = `where ${queryObj.filterCol} = "${queryObj.filterVal}"` + filterStatement;
+			filterStatement = `where ${queryObj.filterCol} like "${queryObj.filterVal}"` + filterStatement;
 		}
 		// Sort by kb / descending if no sort variables passed
 		if (typeof queryObj.sortCol != "undefined" ) {
@@ -47,6 +48,42 @@ const orm = {
 			(err, result, fields) => {
 				if (err) throw err;
 				cb(result);
+			}
+		);
+	},
+	searchUpdates: (queryObj, cb) => {
+		let sortVal;
+		let sortCol;
+		let filterStatement = `\n`;
+		let sortStatement;
+
+		// where ${filterCol} = ${filterVal} 
+		if (typeof queryObj.filterCol != "undefined" ) {
+			//filterStatement = `where ${queryObj.filterCol} = "${queryObj.filterVal}"` + filterStatement;
+			filterStatement = `where ${queryObj.filterCol} like "${queryObj.filterVal}"` + filterStatement;
+		}
+		// Sort by kb / descending if no sort variables passed
+		if (typeof queryObj.sortCol != "undefined" ) {
+			sortCol = queryObj.sortCol;
+		} else {
+			sortCol = "KB";
+		}
+		if ( typeof queryObj.sortVal != "undefined" ) {
+			sortVal = queryObj.sortVal;
+		} else { 
+			sortVal = "desc"; 
+		}
+		sortStatement = `order by ${sortCol} ${sortVal}`
+		const query = selectAllQuery + filterStatement + sortStatement +  ";";
+		connection.query(
+			query,
+			(err, result, fields) => {
+				if (err) throw err;
+				if (result) {
+					console.log('orm searchUpdates result');
+					console.log(result)
+					cb(result);
+				}
 			}
 		);
 	},

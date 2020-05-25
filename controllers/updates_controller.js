@@ -72,6 +72,42 @@ router.get("/", (req, res) => {
 	})
 });
 
+router.get("/search", (req, res) => {
+	// 
+	console.log('controller search')
+	updates.search(req.query, result => {
+		const parsedUpdates = result.map((item) => {
+			const newObj = {
+				uid: item.uid,
+				KBArticle: item.KBArticle,
+				Classification: item.Classification,
+				Status: item.Status,
+				Details: item.Details,
+				Product: item.Product,
+				URL: item.URL,
+			};
+			if (item.PublishDate != "0000-00-00") {
+				newObj.PublishDate = moment(item.PublishDate).format("MM/DD/YYYY");
+			} else {
+				newObj.PublishDate = "";
+			}
+			if (item.URL) {
+				newObj.URL = item.URL;
+			} else {
+				newObj.URL = "";
+			}
+			return newObj;
+		});
+		res.render("pages/home", {
+			page: "main/main",
+			classifications: classifications,
+			statuses: statuses,
+			products: products,
+			updates: parsedUpdates,
+		});
+	})
+});
+
 router.post("/add", (req, res) => {
 	// add new update
 	updates.add(
