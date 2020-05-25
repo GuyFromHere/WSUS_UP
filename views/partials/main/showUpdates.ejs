@@ -23,13 +23,7 @@
 				</div>
 				Status
 			</th>
-			<th>
-				<div class="sort">
-					<img class="sortImg asc" src="../../../assets/img/asc.png" data-col="details" />
-					<img class="sortImg desc" src="../../../assets/img/desc.png" data-col="details"/>
-				</div>
-				Details
-			</th>
+			
 			<th>
 				<div class="sort">
 					<img class="sortImg asc" src="../../../assets/img/asc.png" data-col="product" />
@@ -49,8 +43,15 @@
 					<img class="sortImg asc" src="../../../assets/img/asc.png" data-col="url" />
 					<img class="sortImg desc" src="../../../assets/img/desc.png" data-col="url"/>
 				</div>
+				Research Date
+			</th>
+			<th>
+				Details
+			</th>
+			<th> 
 				Link
 			</th>
+			
 		</thead>
 		<tbody>
 			<%- include('./addUpdates') %>
@@ -70,20 +71,30 @@
 					<td id="status<%= updates[i].uid %>" class="updateInfo">
 						<%= updates[i].Status %>
 					</td>
-					<td id="details<%= updates[i].uid %>" class="updateInfo">
-						<%= updates[i].Details %>
-					</td>
 					<td id="product<%= updates[i].uid %>" class="updateInfo">
 						<%= updates[i].Product %>
 					</td>
 					<td id="publishDate<%= updates[i].uid %>" class="updateInfo">
 						<%= updates[i].PublishDate %>
 					</td>
-					<td class="updateInfo">
+					<td id="researchDate<%= updates[i].uid %>" class="updateInfo">
+						<%= updates[i].ResearchDate %>
+					</td>
+					<td id="details<%= updates[i].uid %>" class="icon-cell">
+						<% if ( updates[i].Details ) { %>
+							<i class="fas fa-info-circle"></i>
+							<!-- <%= updates[i].Details %> -->
+						<% } else { %>
+							<i class="fas fa-info-circle inactive-icon"></i>
+						<% } %>
+					</td>
+					<td class="icon-cell">
 						<% if (updates[i].URL) { %>
 						<a href="<%= updates[i].URL %>" id="url<%= updates[i].uid %>" target="_blank"
-							>Link</a
+							><i class="fas fa-external-link-alt"></i></a
 						>
+						<% } else { %>
+							<i class="fas fa-external-link-alt inactive-icon"></i>
 						<% } %>
 					</td>
 					<td>

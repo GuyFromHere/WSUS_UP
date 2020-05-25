@@ -27,6 +27,17 @@ td {
 	padding: 0 3px 0 3px;
 }
 
+.icon-cell {
+	border: none;	
+	width: 24px;
+	padding: 0;
+	text-align: center;
+}
+
+.inactive-icon {
+	color: rgba(179, 175, 175, 0.292);
+}
+
 .editForm td input {
 	background-color: lemonchiffon;
 }
@@ -46,9 +57,6 @@ td {
 	list-style: none;
 	border: 1px rgb(0, 0, 0) solid;
 	padding: 4px;
-}
-
-#search {
 }
 
 .asc,

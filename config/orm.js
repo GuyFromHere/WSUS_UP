@@ -10,7 +10,7 @@ const updateQuery = `update wupdate
 	where id = ?;`;
 
 const selectAllQuery = `select u.id as uid, u.kb as KBArticle, u.details as Details, s.status as Status, 
-	c.classification as Classification, u.publishDate as PublishDate, p.product as Product, u.url as URL 
+	c.classification as Classification, u.publishDate as PublishDate, u.researchDate as ResearchDate, p.product as Product, u.url as URL 
 	from wupdate u
 	join status s on u.status_id = s.id
 	join classification c on u.classification_id = c.id

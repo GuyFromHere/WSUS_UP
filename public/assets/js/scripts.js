@@ -127,9 +127,9 @@ $(function () {
 		}).then(result => {
 			location.href = uriString;
 		});
-
 	});
 
+	// Submit search when button is clicked.
 	$('#searchBtn').on("click", e => {
 		let uriString = "?";
 		const queryObj = {
@@ -147,6 +147,24 @@ $(function () {
 			location.href = uriString;
 			
 		})
+	});
 
-	})
+	// Dynamic search as input is filled in
+	$('#search').on("input", e => {
+		let uriString = "?";
+		const queryObj = {
+			filterCol: "u.kb",
+			filterVal: $('#search').val() + '%'
+		}
+		console.log(queryObj);
+		$.ajax("/search", {
+			type: "GET",
+			data: queryObj
+		}).then(result => {
+			console.log('search result = ');
+			console.log(result);
+			uriString += "filterCol=u.kb&filterVal="+$("#search").val();
+			location.href = uriString;
+		})
+	});;
 });

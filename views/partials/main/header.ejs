@@ -2,25 +2,25 @@
 <div class="navList">
     <select id="filterSelect-Status" class="filterSelect">
         <option value="">Filter Status:</option>
-		<% for ( let i = 0; i < statuses.length; i++ ) { %>
-			<option id="<%= statuses[i].id %>" value="<%= statuses[i].value %>">
-				<%= statuses[i].value %>
+		<% for ( let i = 0; i < status.length; i++ ) { %>
+			<option id="<%= status[i].id %>" value="<%= status[i].value %>">
+				<%= status[i].value %>
 			</option>
 		<% } %>
     </select>
     <select id="filterSelect-Classification" class="filterSelect">
         <option id="0" value="">Filter Classification:</option>
-		<% for ( let i = 0; i < classifications.length; i++ ) { %>
-			<option id="<%= classifications[i].id %>" value="<%= classifications[i].value %>">
-				<%= classifications[i].value %>
+		<% for ( let i = 0; i < classification.length; i++ ) { %>
+			<option id="<%= classification[i].id %>" value="<%= classification[i].value %>">
+				<%= classification[i].value %>
 			</option>
 		<% } %>
     </select>
     <select id="filterSelect-Product" class="filterSelect">
         <option id="0" value="">Filter Product:</option>
-		<% for ( let i = 0; i < products.length; i++ ) { %>
-			<option id="<%= products[i].id %>" value="<%= products[i].value %>">
-				<%= products[i].value %>
+		<% for ( let i = 0; i < product.length; i++ ) { %>
+			<option id="<%= product[i].id %>" value="<%= product[i].value %>">
+				<%= product[i].value %>
 			</option>
 		<% } %>
     </select>

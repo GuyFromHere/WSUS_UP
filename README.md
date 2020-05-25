@@ -29,7 +29,9 @@ Click `Add` to add a new update to the database
 
 # To Do
 
-Search functionality
+Dynamic search functionality
+
+Search failure message
 
 Edit functionality
 

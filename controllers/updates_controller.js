@@ -3,10 +3,9 @@ const router = express.Router();
 const updates = require("../models/updates");
 const moment = require("moment");
 
-var products;
-
+// figure out how to do this less redundantly
 updates.getColumn(`product`, result => {
-	products = result.map(item => {
+	product = result.map(item => {
 		const newObj = {
 			id: item.id,
 			value: item.product 
@@ -16,7 +15,7 @@ updates.getColumn(`product`, result => {
 })
 
 updates.getColumn(`status`, result => {
-	statuses = result.map(item => {
+	status = result.map(item => {
 		const newObj = {
 			id: item.id,
 			value: item.status 
@@ -26,14 +25,14 @@ updates.getColumn(`status`, result => {
 })
 
 updates.getColumn(`classification`, result => {
-	classifications = result.map(item => {
+	classification = result.map(item => {
 		const newObj = {
 			id: item.id,
 			value: item.classification 
 		}
 		return newObj;
 	})
-})
+}) 
 
 // call selectAll function via updates model
 router.get("/", (req, res) => {
@@ -55,6 +54,11 @@ router.get("/", (req, res) => {
 			} else {
 				newObj.PublishDate = "";
 			}
+			if (item.ResearchDate != "0000-00-00") {
+				newObj.ResearchDate = moment(item.ResearchDate).format("MM/DD/YYYY");
+			} else {
+				newObj.ResearchDate = "";
+			}
 			if (item.URL) {
 				newObj.URL = item.URL;
 			} else {
@@ -64,9 +68,9 @@ router.get("/", (req, res) => {
 		});
 		res.render("pages/home", {
 			page: "main/main",
-			classifications: classifications,
-			statuses: statuses,
-			products: products,
+			classification: classification,
+			status: status,
+			product: product,
 			updates: parsedUpdates,
 		});
 	})
@@ -91,6 +95,11 @@ router.get("/search", (req, res) => {
 			} else {
 				newObj.PublishDate = "";
 			}
+			if (item.ResearchDate != "0000-00-00") {
+				newObj.ResearchDate = moment(item.ResearchDate).format("MM/DD/YYYY");
+			} else {
+				newObj.ResearchDate = "";
+			}
 			if (item.URL) {
 				newObj.URL = item.URL;
 			} else {
@@ -100,9 +109,9 @@ router.get("/search", (req, res) => {
 		});
 		res.render("pages/home", {
 			page: "main/main",
-			classifications: classifications,
-			statuses: statuses,
-			products: products,
+			classification: classification,
+			status: status,
+			product: product,
 			updates: parsedUpdates,
 		});
 	})
