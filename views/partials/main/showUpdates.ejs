@@ -1,5 +1,5 @@
 <div id="container">
-	TODO: Export to csv, date researched / added to DB, search
+	TODO: Export to csv, dynamic search, edit / delete
 	<table>
 		<thead>
 			<th>
@@ -80,14 +80,16 @@
 					<td id="researchDate<%= updates[i].uid %>" class="updateInfo">
 						<%= updates[i].ResearchDate %>
 					</td>
-					<td id="details<%= updates[i].uid %>" class="icon-cell">
-						<% if ( updates[i].Details ) { %>
-							<i class="fas fa-info-circle"></i>
-							<!-- <%= updates[i].Details %> -->
-						<% } else { %>
-							<i class="fas fa-info-circle inactive-icon"></i>
-						<% } %>
+					<% if ( updates[i].Details ) { %>
+							<td id="details<%= updates[i].uid %>" class="details-icon active-icon-cell">
+								<i class="fas fa-info-circle"></i>
+							</td>
+					<% } else { %>
+					<td id="details<%= updates[i].uid %>" class="icon-cell details-icon">
+						<i class="fas fa-info-circle inactive-icon"></i>
 					</td>
+					<% } %>
+					
 					<td class="icon-cell">
 						<% if (updates[i].URL) { %>
 						<a href="<%= updates[i].URL %>" id="url<%= updates[i].uid %>" target="_blank"
@@ -104,6 +106,13 @@
 							data-uid="<%= updates[i].uid %>"
 							value="Edit"
 						/>
+					</td>
+				</tr>
+				<tr id="details<%= updates[i].uid %>-info" class="details-row" style="display: none;">
+					<td colspan="9">
+						<div>
+							<%= updates[i].Details %>
+						</div>
 					</td>
 				</tr>
 			<% } %>

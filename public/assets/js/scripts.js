@@ -141,8 +141,6 @@ $(function () {
 			type: "GET",
 			data: queryObj
 		}).then(result => {
-			console.log('search result = ');
-			console.log(result);
 			uriString += "filterCol=u.kb&filterVal="+$("#search").val();
 			location.href = uriString;
 			
@@ -164,7 +162,13 @@ $(function () {
 			console.log('search result = ');
 			console.log(result);
 			uriString += "filterCol=u.kb&filterVal="+$("#search").val();
-			location.href = uriString;
+			//location.href = uriString;
 		})
-	});;
+	});
+
+	// show hidden details row if the button is active
+	$(".active-icon-cell").on("click", e => {
+		$("#" + e.target.id + "-info").toggle();
+	})
+
 });

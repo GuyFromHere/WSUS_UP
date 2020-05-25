@@ -1,3 +1,4 @@
+
 <form id="form_add">
     <td><input type="text" id="addKb" name="kbArticle" /></td>
     <td>
@@ -32,7 +33,11 @@
     <td>
         <input type="text" id="addPublishDate" name="publishDate" />
 	</td>
-	<td></td>
+	<td class="inactive-icon">
+		<% const currDate = new Date(); %>
+		<% const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"] %>
+		<% const currDateDisplay = months[currDate.getMonth()] + "/" + currDate.getDate() + "/" + currDate.getFullYear(); %>	
+		<%= currDateDisplay %>
     <td><input type="text" id="addDetails" name="details" /></td>
 
     <td class="icon-cell"><input type="text" id="addUrl" name="URL" /></td>
