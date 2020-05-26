@@ -8,9 +8,10 @@ a {
 	color: black;
 }
 
-table,
+/* table, */
 td {
-	border: 1px solid black;
+	border-bottom: 1px solid black;
+	border-left: 1px dotted black;
 }
 
 th {
@@ -25,10 +26,6 @@ th img:active {
 
 td {
 	padding: 0 3px 0 3px;
-}
-
-.details-row {
-	/* display: none; */
 }
 
 .active-icon-cell, 
@@ -98,10 +95,20 @@ td input {
 	width: 100%;
 }
 
+.addBtn {
+	background: none;
+	cursor: pointer;
+}
+
+.editBtn {
+	cursor: pointer;
+}
+
 .edit {
 	background-color: gold;
 }
 
+/* commenting out row colors so I can add a feature that lets the user choose a highlight filter
 .approved {
 	background-color: rgb(192, 225, 238);
 }
@@ -112,7 +119,8 @@ td input {
 
 .unapproved {
 	background-color: palegoldenrod;
-}
+} 
+*/
 
 /* .submitEditBtn:active {
 	background-color: gold;

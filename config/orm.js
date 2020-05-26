@@ -51,6 +51,7 @@ const orm = {
 			}
 		);
 	},
+	// Dynamic search. Under construction.
 	searchUpdates: (queryObj, cb) => {
 		let sortVal;
 		let sortCol;
@@ -91,6 +92,14 @@ const orm = {
 	addUpdate: (data, cb) => {
 		connection.query(insertQuery, data, (err, result) => {
 			if (err) throw err;
+			cb(result);
+		});
+	},
+	//called when user edits an update on the update page
+	updateOne: (data, cb) => {
+		connection.query(updateQuery, data, (err, result, fields) => {
+			if (err) throw err;
+			console.log("updateOne: Rows affected:", result.affectedRows);
 			cb(result);
 		});
 	},

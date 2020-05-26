@@ -78,17 +78,18 @@
 						<%= updates[i].PublishDate %>
 					</td>
 					<td id="researchDate<%= updates[i].uid %>" class="updateInfo">
-						<%= updates[i].ResearchDate %>
+						<% if ( updates[i].ResearchDate ) { %>
+							<%= updates[i].ResearchDate %>
+						<% } %>
 					</td>
 					<% if ( updates[i].Details ) { %>
-							<td id="details<%= updates[i].uid %>" class="details-icon active-icon-cell">
-								<i class="fas fa-info-circle"></i>
-							</td>
+					<td id="details<%= updates[i].uid %>" class="details-icon active-icon-cell" data-id="details<%= updates[i].uid %>">
+						<i class="fas fa-info-circle active-icon" data-id="details<%= updates[i].uid %>"></i>
 					<% } else { %>
 					<td id="details<%= updates[i].uid %>" class="icon-cell details-icon">
 						<i class="fas fa-info-circle inactive-icon"></i>
-					</td>
 					<% } %>
+					</td>
 					
 					<td class="icon-cell">
 						<% if (updates[i].URL) { %>
@@ -99,18 +100,14 @@
 							<i class="fas fa-external-link-alt inactive-icon"></i>
 						<% } %>
 					</td>
-					<td>
-						<input
-							type="submit"
-							class="editBtn"
-							data-uid="<%= updates[i].uid %>"
-							value="Edit"
-						/>
+					<td class="icon-cell">
+						<i class="fas fa-edit editBtn" data-uid="<%= updates[i].uid %>"
+							value="Edit"></i>
 					</td>
 				</tr>
-				<tr id="details<%= updates[i].uid %>-info" class="details-row" style="display: none;">
+				<tr id="details<%= updates[i].uid %>-row" class="details-row" style="display: none;">
 					<td colspan="9">
-						<div>
+						<div id="details<%= updates[i].uid %>-info">
 							<%= updates[i].Details %>
 						</div>
 					</td>

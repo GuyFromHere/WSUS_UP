@@ -143,25 +143,6 @@ $(function () {
 		targetRow.html(editEls);
 	});
 
-	$(".sortImg").on("click", (e) => {
-		e.preventDefault();
-		// set default sort direction
-		let direction;
-		if ($(e.target).hasClass("desc")) {
-			direction = "desc";
-		} else if ($(e.target).hasClass("asc")) {
-			direction = "asc";
-		} else {
-			$(e.target).addClass("desc");
-		}
-		if (typeof direction === "undefined") direction = "asc";
-		$.ajax("/sort/" + $(e.target).data("col") + "/" + direction, {
-			type: "GET",
-		}).then(() => {
-			location.href = "/sort/" + $(e.target).data("col") + "/" + direction;
-		});
-	});
-
 	/* $("td").on("click", e => {
 		e.preventDefault();
 		selectRow($(e.target));
@@ -258,24 +239,4 @@ $(function () {
 		});
 	});
 
-	// check  and hide elements that don't contain the desired value
-	$(".filterSelect").on("change", (e) => {
-		e.preventDefault();
-		// value to filter by
-		const filterValue = $(e.target).val().toLowerCase();
-		const filterColumn = $(e.target).attr('id').split('-')[1].toLowerCase();
-		const updatesReq = {
-			filterCol: filterColumn,
-			filterVal: filterValue
-		}
-		$.ajax("/", {
-			type: "GET",
-			data: updatesReq
-		}).then(result => {
-			console.log('filterSelect result');
-			console.log(result);
-			location.href = "/" + filterCol;
-		});
-
-	});
 });

@@ -3,7 +3,8 @@ const router = express.Router();
 const updates = require("../models/updates");
 const moment = require("moment");
 
-// figure out how to do this less redundantly
+// Create the arrays that are sent to the view to render the select inputs
+// TODO: figure out how to do this less redundantly
 updates.getColumn(`product`, result => {
 	product = result.map(item => {
 		const newObj = {
@@ -49,6 +50,10 @@ router.get("/", (req, res) => {
 				Product: item.Product,
 				URL: item.URL,
 			};
+			/* 
+			console.log('controller find product index:')
+			console.log(product.find(p => p.value === item.Product )) 
+			*/
 			if (item.PublishDate != "0000-00-00") {
 				newObj.PublishDate = moment(item.PublishDate).format("MM/DD/YYYY");
 			} else {
@@ -76,8 +81,8 @@ router.get("/", (req, res) => {
 	})
 });
 
+// Under construction...dynamic search
 router.get("/search", (req, res) => {
-	// 
 	console.log('controller search')
 	updates.search(req.query, result => {
 		const parsedUpdates = result.map((item) => {
@@ -117,8 +122,8 @@ router.get("/search", (req, res) => {
 	})
 });
 
+// add new update
 router.post("/add", (req, res) => {
-	// add new update
 	updates.add(
 		[
 			req.body.kb,
@@ -134,5 +139,24 @@ router.post("/add", (req, res) => {
 		}
 	);
 });
+
+// call update query with new data from form
+router.post("/edit", (req, res) => {
+	updates.edit(
+		[
+			req.body.kb,
+			req.body.classification,
+			req.body.status,
+			req.body.details,
+			req.body.product,
+			req.body.publishDate,
+			req.body.url,
+			req.body.uid,
+		],
+		(result) => {
+			res.json({ id: result.insertId });
+		}
+	);
+})
 
 module.exports = router;

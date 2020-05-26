@@ -33,14 +33,10 @@ Dynamic search functionality
 
 Search failure message
 
-Edit functionality
-
 Delete functionality
 
 Highlight row on click
 
 AD Authentication
 
-Use icons to replace some columns and save space
-
-Toggle longer text below row when icons are clicked
+Input sanitization for editing and adding rows
