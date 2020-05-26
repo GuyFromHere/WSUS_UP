@@ -14,7 +14,6 @@ $(function () {
 		} else { return null; }
 	}
 
-
 	// user clicks td element, get sibling td elements and change their class
 	const selectRow = function (target) {
 		const siblings = target.siblings("td");
@@ -44,38 +43,6 @@ $(function () {
 
 	// EDIT HANDLERS AND HELPER FUNCTIONS
 	
-	// Hard coding values of products, classifications, and statuses for now
-	// TODO: get these dynamically from database so I only need to change them at one place
-	const products = [
-		{ id: 1, value: "Server 2019" },
-		{ id: 2, value: "Server 2016" },
-		{ id: 3, value: "Server 2012" },
-		{ id: 4, value: "Server 2012 R2" },
-		{ id: 5, value: "Server 2008" },
-		{ id: 6, value: "Server 2008 R2" },
-		{ id: 7, value: "Windows 10 1607" },
-		{ id: 8, value: "Windows 10 1709" },
-		{ id: 9, value: "Windows 10 1803" },
-		{ id: 10, value:"Windows 10 1903" },
-		{ id: 11, value:"Windows 7" },
-		{ id: 12, value:"Office 2010" },
-		{ id: 13, value:"Office 2013" },
-	];
-
-	const statuses = [
-		{ id: 1, value: "Unapproved" },
-		{ id: 2, value: "Approved" },
-		{ id: 3, value: "Declined" },
-		{ id: 4, value: "Superseded" },
-	];
-
-	const classifications = [
-		{ id: 1, value: "Security" },
-		{ id: 2, value: "Critical" },
-		{ id: 3, value: "Updates" },
-		{ id: 4, value: "Upgrades" },
-	]
-	
 	// takes select options list and outputs it to edit inputs
 	// marks the currently selected option as selected in the edit form
 	const getSelectOptions = function (selectedOpt, optionsArr) {
@@ -95,10 +62,19 @@ $(function () {
 		}
 		return outStr;
 	};
-
+	
 	// gets id and value from data-id and value of each option in the indicated select input
 	const getSelectObjects = (columnName) => {
-		console.log('scriptjs getSelectObjects for col: ' + columnName);
+		const selectChildren = document.getElementById("add" + columnName).childNodes;
+		const newArr = [];
+		for ( let i = 1; i < selectChildren.length; i+=2 ) {
+			const newObj = {
+				id: selectChildren[i].dataset.id,
+				value: selectChildren[i].text
+			};
+			newArr.push(newObj);
+		}
+		return newArr;
 	}
 
 	// Edit button event handler
@@ -109,9 +85,9 @@ $(function () {
 		e.preventDefault();
 		console.log("script on click editbtn");
 		// loop through select columns and get data-id and values and store them in separate object arrays...active-icon-cell
-		//const products = getSelectObjects("product");
-		//const classifications = getSelectObjects("classification");
-		//const statuses = getSelectObjects("status");
+		const products = getSelectObjects("Product");
+		const statuses = getSelectObjects("Status");
+		const classifications = getSelectObjects("Classification");
 		// get row to update
 		const uid = $(e.target).data("uid");
 		const targetRow = $("#row" + uid);
