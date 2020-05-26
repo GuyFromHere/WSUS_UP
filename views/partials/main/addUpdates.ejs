@@ -1,47 +1,66 @@
 
 <form id="form_add">
-    <td><input type="text" id="addKb" name="kbArticle" /></td>
-    <td>
-        <select id="addClassification">
-            <% for ( let j = 0; j < classification.length; j++) {%>
-            <option
-                value="<%= classification[j].id %>"
-                data-id="<%= classification[j].id %>"
-                ><%= classification[j].value %></option
-            >
-            <% } %>
-        </select>
-    </td>
-    <td>
-        <select id="addStatus">
-            <% for ( let j = 0; j < status.length; j++) {%>
-            <option value="<%= status[j].id %>" data-id="<%= status[j].id %>"
-                ><%= status[j].value %></option
-            >
-            <% } %>
-        </select>
-    </td>
-    <td>
-        <select id="addProduct">
-            <% for ( let j = 0; j < product.length; j++) {%>
-            <option value="<%= product[j].id %>" data-id="<%= product[j].id %>"
-                ><%= product[j].value %></option
-            >
-            <% } %>
-        </select>
-    </td>
-    <td>
-        <input type="text" id="addPublishDate" name="publishDate" />
-	</td>
-	<td class="inactive-icon">
-		<% const currDate = new Date(); %>
-		<% const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"] %>
-		<% const currDateDisplay = months[currDate.getMonth()] + "/" + currDate.getDate() + "/" + currDate.getFullYear(); %>	
-		<%= currDateDisplay %>
-    <td><input type="text" id="addDetails" name="details" /></td>
+    <tr>
+        <td><input type="text" id="addKb" class="add-cell" name="kbArticle" /></td>
+        <td>
+            <select id="addClassification" class="add-cell">
+                <% for ( let j = 0; j < classification.length; j++) {%>
+                <option
+                    value="<%= classification[j].id %>"
+                    data-id="<%= classification[j].id %>"
+                    ><%= classification[j].value %></option
+                >
+                <% } %>
+            </select>
+        </td>
+        <td>
+            <select id="addStatus" class="add-cell">
+                <% for ( let j = 0; j < status.length; j++) {%>
+                <option value="<%= status[j].id %>" data-id="<%= status[j].id %>"
+                    ><%= status[j].value %></option
+                >
+                <% } %>
+            </select>
+        </td>
+        <td>
+            <select id="addProduct" class="add-cell">
+                <% for ( let j = 0; j < product.length; j++) {%>
+                <option value="<%= product[j].id %>" data-id="<%= product[j].id %>"
+                    ><%= product[j].value %></option
+                >
+                <% } %>
+            </select>
+        </td>
+        <td>
+            <input type="text" id="addPublishDate" class="add-cell" name="publishDate" />
+        </td>
+        <td class="inactive-icon add-cell">
+            <% const currDate = new Date(); %>
+            <% const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"] %>
+            <% const currDateDisplay = months[currDate.getMonth()] + "/" + currDate.getDate() + "/" + currDate.getFullYear(); %>	
+            <%= currDateDisplay %>
+        <td class="active-icon-cell-add"> 
+            <!-- <input type="text" id="addDetails" class="add-cell" name="details" /> -->
+            <i id="add-details" class="far fa-edit"></i>
+        </td>
 
-    <td><input type="text" id="addUrl" name="URL" /></td>
-    <td class="icon-cell">
-		<i class="far fa-plus-square addBtn" value="Add"></i>
-	</td>
+        <td class="active-icon-cell-add">
+            <!-- <input type="text" id="addUrl" class="add-cell" name="URL" /> -->
+            <i id="add-url" class="far fa-edit"></i>
+        </td>
+        <td class="icon-cell">
+            <i class="far fa-plus-square addBtn" value="Add"></i>
+        </td>
+    </tr>
+    <!-- Add hidden rows for editing details and URL...show on icon click-->
+    <tr id="add-details-row" style="display: none;">
+        <td colspan="9">
+            Details:&nbsp;&nbsp;<input type="text" id="addDetails" class="add-cell" name="details" />
+        </td>
+    </tr>
+    <tr id="add-url-row" style="display: none;">
+        <td colspan="9">
+            URL:&nbsp;&nbsp;<input type="text" id="addUrl" class="add-cell" name="URL" />
+        </td>
+    </tr>
 </form>

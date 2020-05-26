@@ -1,0 +1,43 @@
+<div class="nav container">
+    <ul class="nav-list">
+        <li>
+            <span class="page-title"><a href="/">WSUS UP?</a></span>
+        </li>
+        <li>
+            <select id="filterSelect-Status" class="filterSelect">
+                <option value="">Filter Status:</option>
+                <% for ( let i = 0; i < status.length; i++ ) { %>
+                    <option id="<%= status[i].id %>" value="<%= status[i].value %>">
+                        <%= status[i].value %>
+                    </option>
+                <% } %>
+            </select>
+        </li>
+        <li>
+            <select id="filterSelect-Classification" class="filterSelect">
+                <option id="0" value="">Filter Classification:</option>
+                <% for ( let i = 0; i < classification.length; i++ ) { %>
+                    <option id="<%= classification[i].id %>" value="<%= classification[i].value %>">
+                        <%= classification[i].value %>
+                    </option>
+                <% } %>
+            </select>
+        </li>
+        <li>
+            <select id="filterSelect-Product" class="filterSelect">
+                <option id="0" value="">Filter Product:</option>
+                <% for ( let i = 0; i < product.length; i++ ) { %>
+                    <option id="<%= product[i].id %>" value="<%= product[i].value %>">
+                        <%= product[i].value %>
+                    </option>
+                <% } %>
+            </select>
+        </li>
+        <li>
+            <input type="text" id="search" placeholder="Enter KB number..."><i id="searchBtn" class="fas fa-search" name="searchBtn"></i>
+        </li>
+        <li>
+            <span class="bulk-edit"><a href="/bulk">Bulk Add</a></span>
+        </li>
+    </ul>
+</div>
