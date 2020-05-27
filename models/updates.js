@@ -1,6 +1,11 @@
 const orm = require("../config/orm");
 
 const updates = {
+	getColumn: (data, cb) => {
+		orm.getColumn(data, (result) => {
+			cb(result);
+		});
+	},
 	all: (params, cb) => {
 		orm.getUpdates(params, (result) => {
 			cb(result);
@@ -21,8 +26,8 @@ const updates = {
 			cb(result);
 		});
 	},
-	getColumn: (data, cb) => {
-		orm.getColumn(data, (result) => {
+	delete: (data, cb) => {
+		orm.deleteOne(data, (result) => {
 			cb(result);
 		});
 	},

@@ -2,8 +2,8 @@
 
 // Populate Selects
 // getSelectObjects:
-// Gets HTML from select objects in the DOM and returns it in an array 
-// so we can use it in getSelectOptions to populate the edit selects 
+// Gets HTML from select objects in the DOM and returns it in an array
+// so we can use it in getSelectOptions to populate the edit selects
 const getSelectObjects = (columnName) => {
 	const selectChildren = document.getElementById("add" + columnName).childNodes;
 	const newArr = [];
@@ -104,8 +104,10 @@ $(".editBtn").on("click", (e) => {
 				<td class="selectedRow active-icon-cell edit-hidden-row" data-id="edit-url${uid}">
 					<i id="edit-url" class="far fa-edit active-icon" data-id="edit-url${uid}"></i>
 				</td>
-				<td class="selectedRow"><input type="submit" id="submitEditBtn" data-uid="${uid}" value="Send" /></td>`
-			//</form>`;
+				<td class="selectedRow">
+					<!-- <input type="submit" id="submitEditBtn" data-uid="${uid}" value="Send" /> -->
+					<i id="submitEditBtn" class="fas fa-share" data-uid="${uid}"></i><i class="far fa-trash-alt deleteBtn" data-uid="${uid}"></i>
+				</td>`;
 
 	// Build hidden rows for editing details and URL
 	const detailsRow = `
@@ -114,8 +116,8 @@ $(".editBtn").on("click", (e) => {
 				Details:
 				<input id="editDetails${uid}" class="selectedRow" type="text" value="${detailsVal}">
 			</td>
-		</tr>`
-    
+		</tr>`;
+
 	const urlRow = `
 			<tr id="edit-url${uid}-row" style="display: none;">
 				<td colspan="9" class="selectedRow">
@@ -123,20 +125,18 @@ $(".editBtn").on("click", (e) => {
 					<input id="editUrl${uid}" class="selectedRow" type="text" value="${href}">
 				</td>
 			</tr>
-		</form>`
-	
+		</form>`;
+
 	targetRow.html(editEls);
 	$(detailsRow).insertAfter(targetRow);
 	$(urlRow).insertAfter(targetRow);
-
 });
 
 // Show hidden details or url row
 $(document).on("click", ".edit-hidden-row", (e) => {
 	e.stopImmediatePropagation(); // prevents event bubbling up to parent when triggered by child element
-	console.log('show hidden row: ' + $(e.target).data("id") + "-row")
+	console.log("show hidden row: " + $(e.target).data("id") + "-row");
 	$("#" + $(e.target).data("id") + "-row").toggle();
-
 });
 
 // handle keypresses when in edit mode
@@ -156,6 +156,20 @@ $(document).on("keypress", ".selectedRow", (e) => {
 $(document).on("click", "#submitEditBtn", (e) => {
 	e.preventDefault();
 	updateRow($(e.target).data("uid"));
+});
+
+//
+$(document).on("click", ".deleteBtn", (e) => {
+	e.preventDefault();
+	console.log("clicked delete for id = " + $(e.target).data("uid"));
+	$.ajax("/delete", {
+		type: "POST",
+		data: { id: $(e.target).data("uid") },
+	}).then((result) => {
+		console.log("edit js delete result");
+		console.log(result);
+		location.reload();
+	});
 });
 
 updateRow = (uid) => {

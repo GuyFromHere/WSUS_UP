@@ -150,7 +150,7 @@ router.post("/bulkAdd", (req, res) => {
 	updates.add(parsedUpdateArr, (result) => {
 		console.log("controller bulkAdd result");
 		console.log(result);
-		res.json(result)
+		res.json(result);
 	});
 });
 
@@ -189,6 +189,15 @@ router.post("/edit", (req, res) => {
 			res.json({ id: result.insertId });
 		}
 	);
+});
+
+router.post("/delete", (req, res) => {
+	console.log("controller delete id = " + req.body.id);
+	updates.delete(req.body.id, (result) => {
+		console.log("controller delete result:");
+		console.log(result);
+		res.json(result);
+	});
 });
 
 module.exports = router;

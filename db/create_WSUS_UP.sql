@@ -79,5 +79,9 @@ select u.id as uid, u.kb as KBArticle, u.details as Details, s.status as Status,
         join status s on u.status_id = s.id
         join classification c on u.classification_id = c.id
         join product p on u.product_id = p.id
-        where u.kb like "302%"
+        where u.kb like "1171%"
 order by KB desc;
+
+-- delete
+DELETE FROM wupdate 
+WHERE wupdate.id = 17;
