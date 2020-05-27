@@ -4,9 +4,9 @@ const insertQuery = `insert into wupdate (
 	kb, classification_id, status_id, details, product_id, publishDate, url) 
 	values (?, ?, ?, ?, ?, str_to_date(?, '%m/%d/%Y'), ?);`;
 
-let bulkInsertQuery = `insert into wupdate (
+const bulkInsertQuery = `insert into wupdate (
 	kb, classification_id, status_id, details, product_id, publishDate, url) 
-	values (?, ?, ?, ?, ?, str_to_date(?, '%m/%d/%Y'), ?);`;
+	values ?`;
 
 const updateQuery = `update wupdate 
 	set kb = ?, classification_id = ?, status_id = ?, details = ?, 
@@ -90,9 +90,6 @@ const orm = {
 	},
 	// call insert query to add a new record to DB
 	addUpdate: (data, cb) => {
-		console.log("orm addUpdate query and data");
-		console.log(insertQuery);
-		console.log(data);
 		connection.query(insertQuery, data, (err, result) => {
 			if (err) throw err;
 			cb(result);
@@ -100,9 +97,6 @@ const orm = {
 	},
 	// call insert query to add a new record to DB
 	bulkAddUpdates: (data, cb) => {
-		console.log("orm bulkAddUpdates query and data");
-		console.log(bulkInsertQuery);
-		console.log(data);
 		connection.query(bulkInsertQuery, [data], (err, result) => {
 			if (err) throw err;
 			cb(result);
@@ -125,3 +119,10 @@ const orm = {
 };
 
 module.exports = orm;
+
+
+/* "45566785", "Updates",	"Approved",	"Server 2008", "01/10/2000", "",
+"12121212", "Critical",	"Approved",	"Server 2016", "01/10/2012", "",
+"4556677",	"Security",	"Unapproved", "Server 2019", "01/10/2013", "",
+"4556677",	"Critical",	"Unapproved", "Server 2019", "01/10/2013", "",
+"3023049",	"Upgrades",	"Superseded", "Office 2013", "06/07/2014", "", */
