@@ -123,12 +123,44 @@ router.get("/search", (req, res) => {
 });
 
 router.get("/bulk", (req, res) => {
-	res.render("pages/home", { page: "main/bulkEdit" });
+	res.render("pages/home", { page: "main/bulkAdd" });
 });
 
 // POST Routes
+// Process bulk add submission
+router.post("/bulkAdd", (req, res) => {
+	const parsedUpdateArr = req.body.bulkData.map((item) => {
+		// get ids from product, status, and classification
+		const newProduct = product.find((reference) => {
+			return reference.value == item.product;
+		});
+		const newStatus = status.find((reference) => {
+			return reference.value == item.status;
+		});
+		const newClassification = classification.find((reference) => {
+			return reference.value == item.classification;
+		});
+		const newArr = [
+			item.kb,
+			newClassification.id.toString(),
+			newStatus.id.toString(),
+			item.details,
+			newProduct.id.toString(),
+			item.publishDate,
+			item.url,
+		];
+		return newArr;
+	});
+	updates.bulk(parsedUpdateArr, (result) => {
+		console.log("controller bulkAdd result");
+		console.log(result);
+	});
+});
+
 // add new update
 router.post("/add", (req, res) => {
+	console.log("controller add req.body");
+	console.log(req.body);
 	updates.add(
 		[
 			req.body.kb,

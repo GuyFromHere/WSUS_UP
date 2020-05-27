@@ -150,9 +150,33 @@ $(function () {
 
 	// toggle add details / URL rows
 	$(".active-icon-cell-add").on("click", (e) => {
-		console.log("click add btn");
-		console.log($(e.target).attr("id"));
 		e.stopImmediatePropagation(); // prevents event bubbling up to parent when triggered by child element
 		$("#" + $(e.target).attr("id") + "-row").toggle();
+	});
+
+	// Process bulk add text
+	$("#bulkSubmitBtn").on("click", (e) => {
+		e.preventDefault();
+		const csv = $("#bulkEditText").val().trim();
+		const bulkText = $.csv.toArrays(csv);
+		const newUpdateArr = bulkText.map((item) => {
+			const newUpdate = {};
+			newUpdate.kb = item[0];
+			newUpdate.classification = item[1];
+			newUpdate.status = item[2];
+			newUpdate.details = item[3];
+			newUpdate.product = item[4];
+			newUpdate.publishDate = item[5];
+			newUpdate.url = item[6];
+			return newUpdate;
+		});
+		$.ajax("/bulkAdd", {
+			type: "POST",
+			data: { bulkData: newUpdateArr },
+		}).then((result) => {
+			console.log("bulkAdd result = ");
+			console.log(result);
+			location.href = "/bulk";
+		});
 	});
 });

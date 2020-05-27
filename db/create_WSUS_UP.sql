@@ -49,18 +49,20 @@ values ("Server 2019"),("Server 2016"),("Server 2012"),("Server 2012 R2"),("Serv
 insert into status (status)
 values ("Unapproved"),("Approved"),("Declined"),("Superseded");
 
-insert into wupdate (kb, url, details, publishDate, status_id, classification_id, product_id)
-values
-(2850016, 
-"https://support.microsoft.com/en-us/help/2850016/ms13-106-description-of-the-security-update-for-office-2010-december-1",
-"Add first data to table","12/10/2010",1,1,6);
-
-
 -- test query
-select u.kb as KBArticle, u.details as Details, s.status as Status, c.classification as Classification 
-from wupdate u
-join status s on u.status_id = s.id
-join classification c on u.classification_id = c.id;
+select u.id as uid, u.kb as KBArticle, u.details as Details, s.status as Status, c.classification as Classification, 
+	u.publishDate as PublishDate, p.product as Product, u.url as URL
+        from wupdate u
+        join status s on u.status_id = s.id
+        join classification c on u.classification_id = c.id
+        join product p on u.product_id = p.id
+order by KB desc;
+
+-- bulk insert
+insert into wupdate (
+	kb, classification_id, status_id, details, product_id, publishDate, url) 
+	values ('4549951', 1, 3, 'Superseded by 4556799', 10, '2020-04-14', ''),
+    ('4549949', 1, 2, '', 1, '2020-04-14', '');
 
 -- filter query
 select u.id as uid, u.kb as KBArticle, u.details as Details, s.status as Status, c.classification as Classification, u.publishDate as PublishDate, p.product as Product, u.url as URL
