@@ -174,9 +174,9 @@ $(function () {
 			type: "POST",
 			data: { bulkData: newUpdateArr },
 		}).then((result) => {
-			console.log("bulkAdd result = ");
-			console.log(result);
 			location.href = "/";
 		});
 	});
 });
+
+

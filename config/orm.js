@@ -6,8 +6,12 @@ const insertQuery = `insert into wupdate (
 
 const updateQuery = `update wupdate 
 	set kb = ?, classification_id = ?, status_id = ?, details = ?, 
-	product_id = ?, publishDate = (str_to_date(?, '%m/%d/%Y')), url = ?
+	product_id = ?, publishDate = ?, url = ?
 	where id = ?;`;
+/* const updateQuery = `update wupdate 
+	set kb = ?, classification_id = ?, status_id = ?, details = ?, 
+	product_id = ?, publishDate = (str_to_date(?, '%m/%d/%Y')), url = ?
+	where id = ?;`; */
 
 const selectAllQuery = `select u.id as uid, u.kb as KBArticle, u.details as Details, s.status as Status, 
 	c.classification as Classification, u.publishDate as PublishDate, u.researchDate as ResearchDate, p.product as Product, u.url as URL 

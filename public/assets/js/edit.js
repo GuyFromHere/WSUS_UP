@@ -1,5 +1,5 @@
 // EDIT HANDLERS AND HELPER FUNCTIONS
-
+console.log('inside edit script...')
 // takes select options list and outputs it to edit inputs
 // marks the currently selected option as selected in the edit form
 const getSelectOptions = function (selectedOpt, optionsArr) {
