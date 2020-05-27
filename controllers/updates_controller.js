@@ -50,17 +50,13 @@ router.get("/", (req, res) => {
 				Product: item.Product,
 				URL: item.URL,
 			};
-			/* 
-			console.log('controller find product index:')
-			console.log(product.find(p => p.value === item.Product )) 
-			*/
 			if (item.PublishDate != "0000-00-00") {
-				newObj.PublishDate = moment(item.PublishDate).format("MM/DD/YYYY");
+				newObj.PublishDate = moment(item.PublishDate).format("YYYY/MM/DD");
 			} else {
 				newObj.PublishDate = "";
 			}
 			if (item.ResearchDate != "0000-00-00") {
-				newObj.ResearchDate = moment(item.ResearchDate).format("MM/DD/YYYY");
+				newObj.ResearchDate = moment(item.ResearchDate).format("YYYY/MM/DD");
 			} else {
 				newObj.ResearchDate = "";
 			}
@@ -151,16 +147,15 @@ router.post("/bulkAdd", (req, res) => {
 		];
 		return newArr;
 	});
-	updates.bulk(parsedUpdateArr, (result) => {
+	updates.add(parsedUpdateArr, (result) => {
 		console.log("controller bulkAdd result");
 		console.log(result);
+		res.json(result)
 	});
 });
 
 // add new update
 router.post("/add", (req, res) => {
-	console.log("controller add req.body");
-	console.log(req.body);
 	updates.add(
 		[
 			req.body.kb,

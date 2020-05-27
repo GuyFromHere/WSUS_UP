@@ -32,20 +32,18 @@
             </select>
         </td>
         <td>
-            <input type="text" id="addPublishDate" class="add-cell" name="publishDate" />
+            <input type="text" id="addPublishDate" class="add-cell" name="publishDate" placeholder="Ex: 2010/5/23">
         </td>
         <td class="inactive-icon add-cell">
             <% const currDate = new Date(); %>
             <% const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"] %>
-            <% const currDateDisplay = months[currDate.getMonth()] + "/" + currDate.getDate() + "/" + currDate.getFullYear(); %>	
+            <% const currDateDisplay = currDate.getFullYear() + "/" + months[currDate.getMonth()] + "/" + currDate.getDate() %>	
             <%= currDateDisplay %>
         <td class="active-icon-cell-add"> 
-            <!-- <input type="text" id="addDetails" class="add-cell" name="details" /> -->
             <i id="add-details" class="far fa-edit"></i>
         </td>
 
         <td class="active-icon-cell-add">
-            <!-- <input type="text" id="addUrl" class="add-cell" name="URL" /> -->
             <i id="add-url" class="far fa-edit"></i>
         </td>
         <td class="icon-cell">

@@ -2,10 +2,6 @@ const connection = require("./connection");
 
 const insertQuery = `insert into wupdate (
 	kb, classification_id, status_id, details, product_id, publishDate, url) 
-	values (?, ?, ?, ?, ?, str_to_date(?, '%m/%d/%Y'), ?);`;
-
-const bulkInsertQuery = `insert into wupdate (
-	kb, classification_id, status_id, details, product_id, publishDate, url) 
 	values ?`;
 
 const updateQuery = `update wupdate 
@@ -28,14 +24,12 @@ const orm = {
 		let sortCol;
 		let filterStatement = `\n`;
 		let sortStatement;
-
-		// where ${filterCol} = ${filterVal}
+		// Add where clause if filter param is present
 		if (typeof queryObj.filterCol != "undefined") {
-			//filterStatement = `where ${queryObj.filterCol} = "${queryObj.filterVal}"` + filterStatement;
 			filterStatement =
 				`where ${queryObj.filterCol} like "${queryObj.filterVal}"` + filterStatement;
 		}
-		// Sort by kb / descending if no sort variables passed
+		// Set order by value 
 		if (typeof queryObj.sortCol != "undefined") {
 			sortCol = queryObj.sortCol;
 		} else {
@@ -47,6 +41,7 @@ const orm = {
 			sortVal = "desc";
 		}
 		sortStatement = `order by ${sortCol} ${sortVal}`;
+
 		const query = selectAllQuery + filterStatement + sortStatement + ";";
 		connection.query(query, (err, result, fields) => {
 			if (err) throw err;
@@ -88,30 +83,26 @@ const orm = {
 			}
 		});
 	},
-	// call insert query to add a new record to DB
-	addUpdate: (data, cb) => {
-		connection.query(insertQuery, data, (err, result) => {
-			if (err) throw err;
-			cb(result);
-		});
-	},
-	// call insert query to add a new record to DB
-	bulkAddUpdates: (data, cb) => {
-		connection.query(bulkInsertQuery, [data], (err, result) => {
+	// Add a new record to DB
+	addUpdate: (queryObj, cb) => {
+		if ( queryObj[0].constructor !== Array ) {
+			queryObj = [queryObj];
+		}
+		connection.query(insertQuery, [queryObj], (err, result) => {
 			if (err) throw err;
 			cb(result);
 		});
 	},
 	//called when user edits an update on the update page
-	updateOne: (data, cb) => {
-		connection.query(updateQuery, data, (err, result, fields) => {
+	updateOne: (queryObj, cb) => {
+		connection.query(updateQuery, queryObj, (err, result, fields) => {
 			if (err) throw err;
-			console.log("updateOne: Rows affected:", result.affectedRows);
 			cb(result);
 		});
 	},
-	getColumn: (data, cb) => {
-		connection.query(`select * from ${data};`, (err, result) => {
+	// Get data for select inputs
+	getColumn: (queryObj, cb) => {
+		connection.query(`select * from ${queryObj};`, (err, result) => {
 			if (err) throw err;
 			cb(result);
 		});

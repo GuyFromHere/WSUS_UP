@@ -170,15 +170,13 @@ $(function () {
 			newUpdate.url = item[6];
 			return newUpdate;
 		});
-		console.log('script js bulkdata')
-		console.log(newUpdateArr)
 		$.ajax("/bulkAdd", {
 			type: "POST",
 			data: { bulkData: newUpdateArr },
 		}).then((result) => {
 			console.log("bulkAdd result = ");
 			console.log(result);
-			location.href = "/bulk";
+			location.href = "/";
 		});
 	});
 });

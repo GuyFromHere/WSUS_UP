@@ -21,11 +21,6 @@ const updates = {
 			cb(result);
 		});
 	},
-	bulk: (data, cb) => {
-		orm.bulkAddUpdates(data, (result) => {
-			cb(result);
-		});
-	},
 	getColumn: (data, cb) => {
 		orm.getColumn(data, (result) => {
 			cb(result);
