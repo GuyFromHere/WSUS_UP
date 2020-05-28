@@ -1,7 +1,7 @@
-<div class="nav container">
+<div class="nav">
     <ul class="nav-list">
         <li>
-            <span class="page-title"><a href="/">WSUS UP?</a></span>
+            <input type="text" id="search" placeholder="Enter KB number..."><i id="searchBtn" class="fas fa-search" name="searchBtn"></i>
         </li>
         <li>
             <select id="filterSelect-Status" class="filterSelect">
@@ -34,10 +34,10 @@
             </select>
         </li>
         <li>
-            <input type="text" id="search" placeholder="Enter KB number..."><i id="searchBtn" class="fas fa-search" name="searchBtn"></i>
+            <span class="nav-button"><a href="/bulk">Bulk Add</a></span>
         </li>
         <li>
-            <span class="bulk-edit"><a href="/bulk">Bulk Add</a></span>
+            <span class="nav-button"><a href="/">Clear Filter</a></span>
         </li>
     </ul>
 </div>

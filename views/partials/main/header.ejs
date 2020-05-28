@@ -1,30 +1,3 @@
-<!-- <h1><a href="/">WSUS Tracker</a></h1>
-<div class="navList">
-    <select id="filterSelect-Status" class="filterSelect">
-        <option value="">Filter Status:</option>
-		<% for ( let i = 0; i < status.length; i++ ) { %>
-			<option id="<%= status[i].id %>" value="<%= status[i].value %>">
-				<%= status[i].value %>
-			</option>
-		<% } %>
-    </select>
-    <select id="filterSelect-Classification" class="filterSelect">
-        <option id="0" value="">Filter Classification:</option>
-		<% for ( let i = 0; i < classification.length; i++ ) { %>
-			<option id="<%= classification[i].id %>" value="<%= classification[i].value %>">
-				<%= classification[i].value %>
-			</option>
-		<% } %>
-    </select>
-    <select id="filterSelect-Product" class="filterSelect">
-        <option id="0" value="">Filter Product:</option>
-		<% for ( let i = 0; i < product.length; i++ ) { %>
-			<option id="<%= product[i].id %>" value="<%= product[i].value %>">
-				<%= product[i].value %>
-			</option>
-		<% } %>
-    </select>
-    <input type="text" id="search" placeholder="Enter KB number..."><button id="searchBtn" name="searchBtn">Search</button>
-</div>
- -->
- <%- include('./nav') %>
+ <div class="header">
+	<%- include('./title') %>
+ </div>

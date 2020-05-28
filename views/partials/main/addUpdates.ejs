@@ -34,11 +34,11 @@
         <td>
             <input type="text" id="addPublishDate" class="add-cell" name="publishDate" placeholder="Ex: 2010/5/23">
         </td>
-        <td class="inactive-icon add-cell">
+        <td class="inactive-icon">
             <% const currDate = new Date(); %>
             <% const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"] %>
             <% const currDateDisplay = currDate.getFullYear() + "/" + months[currDate.getMonth()] + "/" + currDate.getDate() %>	
-            <%= currDateDisplay %>
+            <input type="text" id="addCurrentDate" class="add-cell" name="currentDate" value="<%= currDateDisplay %>" disabled>
         <td class="active-icon-cell-add"> 
             <i id="add-details" class="far fa-edit"></i>
         </td>

@@ -3,6 +3,11 @@
 	font-family: "Montserrat";
 }
 
+.container {
+	display: flex;
+	flex-direction: row;
+}
+
 a {
 	text-decoration: none;
 	color: black;
@@ -10,12 +15,17 @@ a {
 
 .nav-list {
 	list-style-type: none;
+	padding: 0;
 }
 
 .nav-list li {
-	float: left;
-	padding: 10px;
-	margin: 10px;
+	padding: 3px;
+	margin: 0;
+	border: none;
+}
+
+.nav-list li select {
+	padding: 5px;
 	border: 1px black solid;
 	border-radius: 10px;
 }
@@ -27,7 +37,7 @@ td {
 }
 
 th {
-	font-size: 14pt;
+	font-size: 12pt;
 	text-align: left;
 	border-left: 1px dotted black;
 }
@@ -79,14 +89,24 @@ td {
 	padding: 4px;
 }
 
+.filterSelect {
+	width: 100%;
+	border: 1px rgb(0, 0, 0) solid;
+}
+
+.filterSelect:focus {
+	outline: 0;
+}
+
 .asc,
 .desc {
 	margin: 1px 3px 1px 0px;
-	height: 11px;
+	height: 8px;
 }
 
 .add-cell {
 	padding: 2px 0;
+	margin-bottom: 4px;
 	background-color: rgb(230, 234, 235);
 }
 
@@ -112,6 +132,23 @@ td input {
 	border: none;
 	height: 100%;
 	width: 100%;
+}
+
+#search {
+	border-radius: 10px;
+	padding: 5px;
+}
+
+#search:focus {
+	outline: 0;
+}
+
+.nav-button {
+	font-size: 10pt;
+}
+
+.nav-button:hover {
+	text-decoration: underline;
 }
 
 .addBtn {

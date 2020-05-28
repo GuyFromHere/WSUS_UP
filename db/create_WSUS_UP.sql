@@ -50,8 +50,8 @@ insert into status (status)
 values ("Unapproved"),("Approved"),("Declined"),("Superseded");
 
 -- test query
-select u.id as uid, u.kb as KBArticle, u.details as Details, s.status as Status, c.classification as Classification, 
-	u.publishDate as PublishDate, p.product as Product, u.url as URL
+select u.id as uid, u.kb as KBArticle, c.classification as Classification, s.status as Status, u.details as Details, 
+	p.product as Product, u.publishDate as PublishDate, u.url as URL
         from wupdate u
         join status s on u.status_id = s.id
         join classification c on u.classification_id = c.id
