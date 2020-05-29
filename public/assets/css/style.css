@@ -50,6 +50,12 @@ td {
 	padding: 0 3px;
 }
 
+.show:hover,
+.details-row:hover {
+	font-weight: bold;
+	background-color: lemonchiffon;
+}
+
 .active-icon-cell,
 .active-icon-cell-add,
 .icon-cell {
