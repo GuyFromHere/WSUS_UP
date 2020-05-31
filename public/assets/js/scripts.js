@@ -125,21 +125,38 @@ $(function () {
 
 	// Dynamic search as input is filled in...under construction!
 	$("#search").on("input", (e) => {
-		let uriString = "?";
 		const queryObj = {
 			filterCol: "u.kb",
 			filterVal: $("#search").val() + "%",
 		};
-		console.log(queryObj);
+		//console.log(queryObj);
 		$.ajax("/search", {
 			type: "GET",
 			data: queryObj,
 		}).then((result) => {
-			console.log("search result = ");
-			console.log(result);
-			uriString += "filterCol=u.kb&filterVal=" + $("#search").val();
-			//location.href = uriString;
+			$("#search-result-list").empty();
+			let newArr = [];
+			// only show filtered list when results < 10
+			if (result.updates.length < 20) {
+				result.updates.forEach((item) => {
+					//create a new li for each result
+					newArr.push(
+						"<li class='search-result' data-kb=" +
+							item.KBArticle +
+							">" +
+							item.KBArticle +
+							"</li>"
+					);
+				});
+				$("#search-result-list").append(newArr);
+			}
 		});
+	});
+
+	// Search list result event handler. Filters view to just the selected search result when user clicks in list.
+	$("li").on("click", ".search-result", (e) => {
+		e.stopImmediatePropagation();
+		location.href = "?filterCol=u.kb&filterVal=" + $(e.target).data("kb");
 	});
 
 	// toggle details row

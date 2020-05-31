@@ -79,42 +79,14 @@ router.get("/", (req, res) => {
 
 // Under construction...dynamic search
 router.get("/search", (req, res) => {
-	console.log("controller search");
 	updates.search(req.query, (result) => {
 		const parsedUpdates = result.map((item) => {
 			const newObj = {
-				uid: item.uid,
 				KBArticle: item.KBArticle,
-				Classification: item.Classification,
-				Status: item.Status,
-				Details: item.Details,
-				Product: item.Product,
-				URL: item.URL,
 			};
-			if (item.PublishDate != "0000-00-00") {
-				newObj.PublishDate = moment(item.PublishDate).format("MM/DD/YYYY");
-			} else {
-				newObj.PublishDate = "";
-			}
-			if (item.ResearchDate != "0000-00-00") {
-				newObj.ResearchDate = moment(item.ResearchDate).format("MM/DD/YYYY");
-			} else {
-				newObj.ResearchDate = "";
-			}
-			if (item.URL) {
-				newObj.URL = item.URL;
-			} else {
-				newObj.URL = "";
-			}
 			return newObj;
 		});
-		res.render("pages/home", {
-			page: "main/main",
-			classification: classification,
-			status: status,
-			product: product,
-			updates: parsedUpdates,
-		});
+		res.json({ updates: parsedUpdates });
 	});
 });
 

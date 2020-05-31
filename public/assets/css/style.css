@@ -119,6 +119,7 @@ td {
 .selectedRow {
 	padding: 0 0 0 2px;
 	background-color: lemonchiffon;
+	font-weight: bold;
 }
 
 td select {
@@ -147,6 +148,22 @@ td input {
 
 #search:focus {
 	outline: 0;
+}
+
+#search-result-list {
+	padding: 0;
+}
+
+.search-result {
+	list-style-type: none;
+	cursor: pointer;
+	border-bottom: 1px solid black;
+	border-left: 1px dotted black;
+}
+
+.search-result:hover {
+	background-color: lemonchiffon;
+	font-weight: bold;
 }
 
 .nav-button {
