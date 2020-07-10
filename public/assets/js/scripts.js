@@ -71,6 +71,7 @@ $(function () {
 			queryObj.filterVal = filterObj.filterVal;
 			uriString += "&filterCol=" + queryObj.filterCol + "&filterVal=" + queryObj.filterVal;
 		}
+		console.log(queryObj);
 		$.ajax("/", {
 			type: "GET",
 			data: queryObj,
