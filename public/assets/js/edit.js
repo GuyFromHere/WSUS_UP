@@ -72,10 +72,7 @@ $(".editBtn").on("click", (e) => {
 	let href = $("#url" + uid).attr("href");
 	if (typeof href === "undefined") {
 		href = "";
-		//var url = `<td class="selectedRow"><input id="editUrl${uid}" class="selectedRow" type="text" value="${href}"></td>`;
-	} /* else {
-		//var url = `<td class="selectedRow"><input id="editUrl${uid}" class="selectedRow" type="text" value=""></td>`;
-	} */
+	}
 
 	// Build form to insert in place of targeted row
 	const editEls =
